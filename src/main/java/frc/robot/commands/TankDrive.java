@@ -1,5 +1,6 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
@@ -19,8 +20,7 @@ public class TankDrive extends Command {
 
     @Override
     protected void execute() {
-        double throttle = (1.0 - Robot.oi.LEFT_JOYSTICK.getThrottle()) / -2;
-        Robot.driveBase.drive(Robot.oi.getLeftJoyY() * throttle, Robot.oi.getRightJoyY());
+        Robot.driveBase.drive(Robot.oi.controller.getY(Hand.kLeft), Robot.oi.controller.getY(Hand.kRight));
     }
 
     @Override

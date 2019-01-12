@@ -16,4 +16,5 @@ public class RobotMap
     public static final int RIGHT_BACK_MOTOR = 5;
     
     //CONTROLLER
+    public static final int CONTROLLER = 0;
 }
