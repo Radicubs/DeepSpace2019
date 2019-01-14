@@ -5,34 +5,36 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 
-public class TankDrive extends Command {
-    public TankDrive() {
+public class AutonomousDrive extends Command {
+    public AutonomousDrive() {
         requires(Robot.driveBase);
     }
-
+    int i = 0;
 
 
     @Override
     protected void initialize() {
-
+        Robot.autonomous = true;
+        i = 0;
     }
 
 
     @Override
     protected void execute() {
-        Robot.driveBase.drive(Robot.oi.controller.getY(Hand.kLeft), Robot.oi.controller.getY(Hand.kRight));
+        Robot.driveBase.drive(0.15, 0.15);
+        i++;
     }
 
     @Override
     protected boolean isFinished() {
         // TODO: Make this return true when this Command no longer needs to run execute()
-        return false; //Robot.autonomous;
+        return (i >= 250);
     }
 
 
     @Override
     protected void end() {
-
+        Robot.autonomous = false;
     }
 
 
@@ -41,4 +43,3 @@ public class TankDrive extends Command {
         super.interrupted();
     }
 }
-
