@@ -21,6 +21,8 @@ public class DriveBase extends Subsystem {
 
     private DifferentialDrive DifferentialDrive;
 
+    private Spark TestMotor;
+
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
@@ -32,15 +34,21 @@ public class DriveBase extends Subsystem {
         RightMotorMiddle = new Spark(RobotMap.RIGHT_MIDDLE_MOTOR);
         RightMotorBack = new Spark(RobotMap.RIGHT_BACK_MOTOR);
 
+
         LeftMotorGroup = new SpeedControllerGroup(LeftMotorFront, LeftMotorMiddle, LeftMotorBack);
         RightMotorGroup = new SpeedControllerGroup(RightMotorFront, RightMotorMiddle, RightMotorBack);
 
+
         DifferentialDrive = new DifferentialDrive(LeftMotorGroup, RightMotorGroup);
+
+
+        TestMotor = new Spark(RobotMap.TEST_MOTOR);
     }
 
 
     public void drive(double leftValue, double rightValue) {
-        DifferentialDrive.tankDrive(leftValue, rightValue);
+        //DifferentialDrive.tankDrive(leftValue, rightValue);
+        TestMotor.set(leftValue);
     }
     public void initDefaultCommand() {
         setDefaultCommand(new TankDrive());
