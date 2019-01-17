@@ -10,6 +10,7 @@ public class TankDrive extends Command {
         requires(Robot.driveBase);
     }
 
+    double turningSpeed;
 
 
     @Override
@@ -20,13 +21,16 @@ public class TankDrive extends Command {
 
     @Override
     protected void execute() {
-        Robot.driveBase.drive(Robot.oi.controller.getY(Hand.kLeft), Robot.oi.controller.getY(Hand.kRight));
+        turningSpeed = Robot.oi.controller.getX(Hand.kLeft);
+        Robot.driveBase.drive(Robot.oi.controller.getY(Hand.kLeft), turningSpeed);
+        //Robot.driveBase.drive(0.66, -0.66);
+    
     }
 
     @Override
     protected boolean isFinished() {
         // TODO: Make this return true when this Command no longer needs to run execute()
-        return false; //Robot.autonomous;
+        return false;
     }
 
 
@@ -41,4 +45,3 @@ public class TankDrive extends Command {
         super.interrupted();
     }
 }
-

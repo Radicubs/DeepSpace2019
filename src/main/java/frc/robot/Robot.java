@@ -8,7 +8,6 @@ package frc.robot;/*------------------------------------------------------------
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import frc.robot.commands.TankDrive;
 import frc.robot.subsystems.*;
 
 
@@ -17,14 +16,12 @@ public class Robot extends TimedRobot
 {
     public static OI oi;
     public static DriveBase driveBase;
-    public static boolean autonomous = false;
 
     @Override
     public void robotInit() 
     {
         oi = new OI();
         driveBase = new DriveBase();
-        
     }
 
 
@@ -57,7 +54,7 @@ public class Robot extends TimedRobot
     @Override
     public void teleopInit() 
     {
-        
+
     }
 
 
