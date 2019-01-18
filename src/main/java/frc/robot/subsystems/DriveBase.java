@@ -12,6 +12,7 @@ public class DriveBase extends Subsystem {
     private Spark LeftChassisMotor;
     private Spark RightChassisMotor;
 
+    private double leftSpeed, rightSpeed;
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
@@ -21,10 +22,16 @@ public class DriveBase extends Subsystem {
     }
 
 
-    public void drive(double leftValue, double rightValue) {
+    public void drive(double forwardSpeed, double rotationalSpeed) {
         //DifferentialDrive.tankDrive(leftValue, rightValue);
-        LeftChassisMotor.set(leftValue);
-        RightChassisMotor.set(rightValue);
+        leftSpeed = forwardSpeed;
+        rightSpeed = forwardSpeed;
+
+        leftSpeed += rotationalSpeed * 0.5;
+        rightSpeed += rotationalSpeed * 0.5;
+
+        LeftChassisMotor.set(leftSpeed);
+        RightChassisMotor.set(rightSpeed);
 
     }
     public void initDefaultCommand() {

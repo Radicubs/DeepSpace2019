@@ -21,9 +21,9 @@ public class TankDrive extends Command {
 
     @Override
     protected void execute() {
-        //turningSpeed = Robot.oi.controller.getX(Hand.kLeft);
-        //Robot.driveBase.drive(Robot.oi.controller.getY(Hand.kLeft), turningSpeed);
-        Robot.driveBase.drive(0.66, -0.66);
+        turningSpeed = Robot.oi.controller.getX(Hand.kLeft);
+        Robot.driveBase.drive(Robot.oi.controller.getY(Hand.kLeft), turningSpeed);
+        //Robot.driveBase.drive(0.66, -0.66);
     
     }
 
