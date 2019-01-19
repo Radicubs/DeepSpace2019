@@ -23,7 +23,6 @@ public class DriveBase extends Subsystem {
 
 
     public void drive(double forwardSpeed, double rotationalSpeed) {
-        //DifferentialDrive.tankDrive(leftValue, rightValue);
         leftSpeed = forwardSpeed;
         rightSpeed = forwardSpeed;
 
@@ -31,7 +30,7 @@ public class DriveBase extends Subsystem {
         rightSpeed += rotationalSpeed * 0.5;
 
         LeftChassisMotor.set(leftSpeed);
-        RightChassisMotor.set(rightSpeed);
+        RightChassisMotor.set(-rightSpeed);
 
     }
     public void initDefaultCommand() {
