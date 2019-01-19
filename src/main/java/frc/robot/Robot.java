@@ -6,6 +6,7 @@ package frc.robot;/*------------------------------------------------------------
 /*----------------------------------------------------------------------------*/
 
 
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.robot.subsystems.*;
@@ -22,6 +23,7 @@ public class Robot extends TimedRobot
     {
         oi = new OI();
         driveBase = new DriveBase();
+        CameraServer.getInstance().startAutomaticCapture();
     }
 
 
