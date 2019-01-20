@@ -10,8 +10,6 @@ public class TankDrive extends Command {
         requires(Robot.driveBase);
     }
 
-    double turningSpeed;
-
 
     @Override
     protected void initialize() {
@@ -21,9 +19,9 @@ public class TankDrive extends Command {
 
     @Override
     protected void execute() {
-        //turningSpeed = Robot.oi.controller.getX(Hand.kLeft);
-        //Robot.driveBase.drive(Robot.oi.controller.getY(Hand.kLeft), turningSpeed);
-        Robot.driveBase.drive(0.66, -0.66);
+        Robot.driveBase.drive(Robot.oi.controller.getY(Hand.kLeft) / 2, 
+            Robot.oi.controller.getX(Hand.kLeft) / 2);
+        //Robot.driveBase.drive(0.66, -0.66);
     
     }
 
