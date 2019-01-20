@@ -1,13 +1,19 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.Robot;
 
 
 public class TankDrive extends Command {
-    public TankDrive() {
+
+    private DifferentialDrive differentialDrive;
+
+    public TankDrive(Spark left, Spark right) {
         requires(Robot.driveBase);
+        differentialDrive = new DifferentialDrive(left, right);
     }
 
     double turningSpeed;
@@ -21,8 +27,10 @@ public class TankDrive extends Command {
 
     @Override
     protected void execute() {
-        turningSpeed = Robot.oi.controller.getX(Hand.kLeft);
-        Robot.driveBase.drive(Robot.oi.controller.getY(Hand.kLeft), turningSpeed);
+        //turningSpeed = Robot.oi.controller.getX(Hand.kLeft);
+        //Robot.driveBase.drive(Robot.oi.controller.getY(Hand.kLeft), turningSpeed);
+        differentialDrive.tankDrive(Robot.oi.controller.getY(Hand.kLeft) / 10,
+            Robot.oi.controller.getY(Hand.kRight) / 10);
         //Robot.driveBase.drive(0.66, -0.66);
     
     }
