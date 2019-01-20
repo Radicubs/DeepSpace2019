@@ -4,6 +4,7 @@ import frc.robot.commands.*;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.drive.RobotDriveBase;
 import frc.robot.RobotMap;
 
 public class DriveBase extends Subsystem {
@@ -20,9 +21,23 @@ public class DriveBase extends Subsystem {
     // here. Call these from Commands.
     public void drive(double forwardSpeed, double rotationalSpeed) {
 
+        System.out.println(DifferentialDrive.kDefaultDeadband);
+        
         //This one line of code replaces all the code below it
         //Additionally it is more accurate and accounts for input scaling at different speeds
-        differentialDrive.arcadeDrive(forwardSpeed, rotationalSpeed);
+
+        double cubedFSpeed = -Math.pow(forwardSpeed, 3);
+        double cubedRSpeed = -Math.pow(rotationalSpeed, 3);
+
+        differentialDrive.arcadeDrive(cubedFSpeed, cubedRSpeed, false);
+        
+        //This old version uses the default of squaring instead of cubing
+        //differentialDrive.arcadeDrive(forwardSpeed, rotationalSpeed, false);
+
+        System.out.println("Raw Forward Speed: " + forwardSpeed);
+        System.out.println("Raw Rotational Speed: " + rotationalSpeed);
+        System.out.println("Left Motor Speed: " + LeftChassisMotor.get());
+        System.out.println("Right Motor Speed: " + RightChassisMotor.get() + "\n");
 
         // leftSpeed = forwardSpeed;
         // rightSpeed = forwardSpeed;
@@ -33,9 +48,6 @@ public class DriveBase extends Subsystem {
         // LeftChassisMotor.set(leftSpeed);
         // RightChassisMotor.set(-rightSpeed);
 
-
-
-
     }
 
     public DriveBase() {
@@ -43,6 +55,10 @@ public class DriveBase extends Subsystem {
         RightChassisMotor = new Spark(RobotMap.RIGHT_CHASSIS_MOTOR);
 
         differentialDrive = new DifferentialDrive(LeftChassisMotor, RightChassisMotor);
+        
+        //the default deadband was 0.02, setting it lower here
+        //because the cubing messes it up otherwise?
+        differentialDrive.setDeadband(0.00);
     }
 
 

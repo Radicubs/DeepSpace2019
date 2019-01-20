@@ -23,7 +23,7 @@ public class ArcadeDrive extends Command {
     @Override
     protected void execute() {
         Robot.driveBase.drive(Robot.oi.controller.getY(Hand.kLeft),//Y-Axis of left joystick
-                              Robot.oi.controller.getX(Hand.kLeft));//X-Axis of right joystick
+                              Robot.oi.controller.getX(Hand.kLeft));//X-Axis of left joystick
     }
 
     @Override
