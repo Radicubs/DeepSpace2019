@@ -42,7 +42,7 @@ public class TankDrive extends Command {
         System.out.println("Magnitude: " + magnitude);
 
         Robot.driveBase.drive(Robot.oi.controller.getY(Hand.kLeft),//Y-Axis of left joystick
-                              Robot.oi.controller.getY(Hand.kRight));//X-Axis of left joystick
+                              Robot.oi.controller.getY(Hand.kRight));//Y-Axis of right joystick
     }
 
     //takes the exponent of the positive value
