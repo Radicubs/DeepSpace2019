@@ -23,7 +23,7 @@ public class TankDrive extends Command {
     @Override
     protected void execute() {
         double leftSpeed = Robot.oi.controller.getY(Hand.kLeft);
-        double rightSpeed = Robot.oi.controller.getX(Hand.kLeft);
+        double rightSpeed = Robot.oi.controller.getY(Hand.kRight);
 
         //inverting these values make it work more intuitively
         double adjustedLSpeed = -adjustByExponent(leftSpeed, 3);
@@ -37,12 +37,12 @@ public class TankDrive extends Command {
         adjustedLSpeed *= multiplier;
         adjustedRSpeed *= multiplier;
 
-        System.out.println("Raw Forward Speed: " + leftSpeed);
-        System.out.println("Raw Rotational Speed: " + rightSpeed);
+        System.out.println("Raw Left Speed: " + leftSpeed);
+        System.out.println("Raw Right Speed: " + rightSpeed);
         System.out.println("Magnitude: " + magnitude);
 
-        Robot.driveBase.drive(Robot.oi.controller.getY(Hand.kLeft),//Y-Axis of left joystick
-                              Robot.oi.controller.getY(Hand.kRight));//Y-Axis of right joystick
+        Robot.driveBase.drive(adjustedLSpeed,//Y-Axis of left joystick
+                              adjustedRSpeed);//Y-Axis of right joystick
     }
 
     //takes the exponent of the positive value
