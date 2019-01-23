@@ -13,4 +13,7 @@ public class RobotMap
     
     //CONTROLLER
     public static final int CONTROLLER = 0;
+
+    //DRIVE MODE
+    public static final boolean ARCADE_DRIVE = true;
 }

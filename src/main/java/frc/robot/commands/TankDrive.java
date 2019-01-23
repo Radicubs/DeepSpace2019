@@ -5,9 +5,9 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 
-public class ArcadeDrive extends Command {
+public class TankDrive extends Command {
 
-    public ArcadeDrive() {
+    public TankDrive() {
         //requires is method that tells commands which subsystems will be using it
         //IT IS MANDATORY
         requires(Robot.driveBase);
@@ -22,27 +22,27 @@ public class ArcadeDrive extends Command {
 
     @Override
     protected void execute() {
-        double forwardSpeed = Robot.oi.controller.getY(Hand.kLeft);
-        double rotationalSpeed = Robot.oi.controller.getX(Hand.kLeft);
+        double leftSpeed = Robot.oi.controller.getY(Hand.kLeft);
+        double rightSpeed = Robot.oi.controller.getX(Hand.kLeft);
 
         //inverting these values make it work more intuitively
-        double adjustedFSpeed = -adjustByExponent(forwardSpeed, 3);
-        double adjustedRSpeed = -adjustByExponent(rotationalSpeed, .5);
+        double adjustedLSpeed = -adjustByExponent(leftSpeed, 3);
+        double adjustedRSpeed = -adjustByExponent(rightSpeed, 3);
 
         //this magnitude assumes the range of the controller is a perfect circle
         //it actually extends slightly beyond that, but it should be fine?
-        double magnitude = Math.sqrt(forwardSpeed * forwardSpeed + rotationalSpeed * rotationalSpeed);
-        double multiplier = magnitude / Math.max(Math.abs(adjustedFSpeed), Math.abs(adjustedRSpeed));
+        double magnitude = Math.sqrt(leftSpeed * leftSpeed + rightSpeed * rightSpeed);
+        double multiplier = magnitude / Math.max(Math.abs(adjustedLSpeed), Math.abs(adjustedRSpeed));
         
-        adjustedFSpeed *= multiplier;
+        adjustedLSpeed *= multiplier;
         adjustedRSpeed *= multiplier;
 
-        System.out.println("Raw Forward Speed: " + forwardSpeed);
-        System.out.println("Raw Rotational Speed: " + rotationalSpeed);
+        System.out.println("Raw Forward Speed: " + leftSpeed);
+        System.out.println("Raw Rotational Speed: " + rightSpeed);
         System.out.println("Magnitude: " + magnitude);
 
-        Robot.driveBase.drive(adjustedFSpeed,//Y-Axis of left joystick
-                              adjustedRSpeed);//X-Axis of left joystick
+        Robot.driveBase.drive(Robot.oi.controller.getY(Hand.kLeft),//Y-Axis of left joystick
+                              Robot.oi.controller.getY(Hand.kRight));//X-Axis of left joystick
     }
 
     //takes the exponent of the positive value
