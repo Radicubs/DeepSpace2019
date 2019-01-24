@@ -16,4 +16,7 @@ public class RobotMap
 
     //DRIVE MODE
     public static final boolean ARCADE_DRIVE = true;
+
+    //COMPRESSOR
+    public static final int COMPRESSOR = 0;
 }
