@@ -8,6 +8,7 @@ package frc.robot;/*------------------------------------------------------------
 
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.robot.subsystems.*;
 
@@ -18,6 +19,7 @@ public class Robot extends TimedRobot
     public static OI oi;
     public static DriveBase driveBase;
     public static Compressor comp;
+    public static Ultrasonic ultra;
 
     @Override
     public void robotInit() 
@@ -25,6 +27,8 @@ public class Robot extends TimedRobot
         oi = new OI();
         driveBase = new DriveBase();
         comp = new Compressor(RobotMap.COMPRESSOR);
+        ultra = new Ultrasonic(RobotMap.ULTRASONIC_PING, RobotMap.ULTRASONIC_ECHO);
+        ultra.setAutomaticMode(true);
     }
 
 

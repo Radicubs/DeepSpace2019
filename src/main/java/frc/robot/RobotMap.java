@@ -19,4 +19,8 @@ public class RobotMap
 
     //COMPRESSOR
     public static final int COMPRESSOR = 0;
+
+    //Ultrasonic 
+    public static final int ULTRASONIC_PING = 0;
+    public static final int ULTRASONIC_ECHO = 1;
 }

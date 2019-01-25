@@ -60,7 +60,7 @@ public class DriveBase extends Subsystem {
     //It will run the command ArcadeDrive
     //Therefore driving will always be enabled
     public void initDefaultCommand() {
-        Command defaultCommand = RobotMap.ARCADE_DRIVE ? new ArcadeDrive() : new TankDrive();
+        Command defaultCommand = RobotMap.ARCADE_DRIVE ? new ArcadeDrive() : new ArcadeDrive();
         setDefaultCommand(defaultCommand);
     }
 }
