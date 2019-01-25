@@ -17,12 +17,14 @@ public class Robot extends TimedRobot
 {
     public static OI oi;
     public static DriveBase driveBase;
+    public static CompressSystem compressSystem;
 
     @Override
     public void robotInit() 
     {
         oi = new OI();
         driveBase = new DriveBase();
+        compressSystem = new CompressSystem();
         CameraServer.getInstance().startAutomaticCapture();
     }
 

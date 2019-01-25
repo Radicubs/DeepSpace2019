@@ -6,7 +6,10 @@ import frc.robot.Robot;
 
 
 public class TankDrive extends Command {
+
     public TankDrive() {
+        //requires is method that tells commands which subsystems will be using it
+        //IT IS MANDATORY
         requires(Robot.driveBase);
     }
 
@@ -19,10 +22,33 @@ public class TankDrive extends Command {
 
     @Override
     protected void execute() {
-        Robot.driveBase.drive(Robot.oi.controller.getY(Hand.kLeft) / 2, 
-            Robot.oi.controller.getX(Hand.kLeft) / 2);
-        //Robot.driveBase.drive(0.66, -0.66);
-    
+        double leftSpeed = Robot.oi.controller.getY(Hand.kLeft);
+        double rightSpeed = Robot.oi.controller.getY(Hand.kRight);
+
+        //inverting these values make it work more intuitively
+        double adjustedLSpeed = -adjustByExponent(leftSpeed, 3);
+        double adjustedRSpeed = -adjustByExponent(rightSpeed, 3);
+
+        //this magnitude assumes the range of the controller is a perfect circle
+        //it actually extends slightly beyond that, but it should be fine?
+        double magnitude = Math.sqrt(leftSpeed * leftSpeed + rightSpeed * rightSpeed);
+        double multiplier = magnitude / Math.max(Math.abs(adjustedLSpeed), Math.abs(adjustedRSpeed));
+        
+        adjustedLSpeed *= multiplier;
+        adjustedRSpeed *= multiplier;
+
+        System.out.println("Raw Left Speed: " + leftSpeed);
+        System.out.println("Raw Right Speed: " + rightSpeed);
+        System.out.println("Magnitude: " + magnitude);
+
+        Robot.driveBase.drive(adjustedLSpeed,//Y-Axis of left joystick
+                              adjustedRSpeed);//Y-Axis of right joystick
+    }
+
+    //takes the exponent of the positive value
+    //and copies the original sign
+    private static double adjustByExponent(double value, double exp) {
+        return Math.copySign(Math.pow(Math.abs(value), exp), value);
     }
 
     @Override
