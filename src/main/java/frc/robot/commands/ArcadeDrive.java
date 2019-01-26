@@ -17,9 +17,16 @@ public class ArcadeDrive extends Command {
 
     @Override
     protected void initialize() {
-
+        double VOLTS_TO_DIST = 1.0;
     }
 
+    public static double getVoltage() {
+        return Robot.mb1013.getVoltage();
+      }
+      
+      public static double getDistance() {
+        return getVoltage() * 1; //VOLTS_TO_DIST;
+      }
 
     @Override
     protected void execute() {
@@ -41,6 +48,8 @@ public class ArcadeDrive extends Command {
         System.out.println("Raw Forward Speed: " + forwardSpeed);
         System.out.println("Raw Rotational Speed: " + rotationalSpeed);
         System.out.println("Magnitude: " + magnitude);
+
+        System.out.println(getDistance());
 
         Robot.driveBase.drive(adjustedFSpeed,//Y-Axis of left joystick
                               adjustedRSpeed);//X-Axis of left joystick
