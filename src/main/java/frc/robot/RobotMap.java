@@ -16,4 +16,15 @@ public class RobotMap
 
     //COMPRESSOR
     public static final int COMPRESSOR = 0;
+
+    //SOLENOIDS
+    public static final int SOLENOIDONE = 0;
+
+
+    //BUTTONS ARE MESSED UP -_-
+    //Robot.oi.controller.getAbutton() ==> actually controllers X button
+    //Robot.oi.controller.getBbutton() ==> actually controllers A button
+    //Robot.oi.controller.getXbutton() ==> actually controllers B button
+    //Robot.oi.controller.getYbutton() ==> actually controllers Y button
+
 }

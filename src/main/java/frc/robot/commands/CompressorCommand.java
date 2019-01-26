@@ -18,13 +18,20 @@ public class CompressorCommand extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
+        Robot.compressSystem.Compress();
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        if (Robot.oi.controller.getAButtonPressed()) {
+        if (Robot.oi.controller.getBButtonPressed()) {
+            Robot.compressSystem.solenoidZero();
+            System.out.println("Button pressing working");
+        }
+
+        if (Robot.oi.controller.getXButtonPressed()) {
             Robot.compressSystem.Compress();
+            System.out.println("Compressor working");
         }
     }
 
