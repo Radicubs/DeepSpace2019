@@ -6,6 +6,7 @@ package frc.robot;/*------------------------------------------------------------
 /*----------------------------------------------------------------------------*/
 
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.robot.subsystems.*;
@@ -16,12 +17,14 @@ public class Robot extends TimedRobot
 {
     public static OI oi;
     public static DriveBase driveBase;
+    public static Compressor comp;
 
     @Override
     public void robotInit() 
     {
         oi = new OI();
         driveBase = new DriveBase();
+        comp = new Compressor(RobotMap.COMPRESSOR);
     }
 
 
