@@ -1,17 +1,24 @@
 package frc.robot.subsystems;
 
-import frc.robot.commands.*;
-import edu.wpi.first.wpilibj.Spark;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.RobotMap;
+import frc.robot.commands.ArcadeDrive;
+import frc.robot.commands.TankDrive;
 
 public class DriveBase extends Subsystem {
 
-    private Spark LeftChassisMotor;
-    private Spark RightChassisMotor;
+    private WPI_TalonSRX LeftChassisMotor;
+    private WPI_VictorSPX LeftFollowerOne;
+    private WPI_VictorSPX LeftFollowerTwo;
 
+    private WPI_TalonSRX RightChassisMotor;
+    private WPI_VictorSPX RightFollowerOne;
+    private WPI_VictorSPX RightFollowerTwo;
 
     //This takes joystick inputs and converts it to appropriate motor inputs depending on the drive mode
     private DifferentialDrive differentialDrive;
@@ -45,8 +52,29 @@ public class DriveBase extends Subsystem {
     }
 
     public DriveBase() {
-        LeftChassisMotor = new Spark(RobotMap.LEFT_CHASSIS_MOTOR);
-        RightChassisMotor = new Spark(RobotMap.RIGHT_CHASSIS_MOTOR);
+        /*CAN Motor Setup*/
+        //Initialization
+        LeftChassisMotor = new WPI_TalonSRX(RobotMap.LEFT_TALON);
+        LeftFollowerOne = new WPI_VictorSPX(RobotMap.LEFT_FOLLOWER_ONE);
+        LeftFollowerTwo = new WPI_VictorSPX(RobotMap.LEFT_FOLLOWER_TWO);
+
+        RightChassisMotor = new WPI_TalonSRX(RobotMap.RIGHT_TALON);
+        RightFollowerOne = new WPI_VictorSPX(RobotMap.RIGHT_FOLLOWER_ONE);
+        RightFollowerTwo = new WPI_VictorSPX(RobotMap.RIGHT_FOLLOWER_TWO);
+
+        //Factory Default Configurations
+        LeftChassisMotor.configFactoryDefault();
+        LeftFollowerOne.configFactoryDefault();
+        LeftFollowerTwo.configFactoryDefault();
+        RightChassisMotor.configFactoryDefault();
+        RightFollowerOne.configFactoryDefault();
+        RightFollowerTwo.configFactoryDefault();
+
+        //Configure Followers
+        LeftFollowerOne.follow(LeftChassisMotor);
+        LeftFollowerTwo.follow(LeftChassisMotor);
+        RightFollowerOne.follow(RightChassisMotor);
+        RightFollowerTwo.follow(RightChassisMotor);
 
         differentialDrive = new DifferentialDrive(LeftChassisMotor, RightChassisMotor);
         
