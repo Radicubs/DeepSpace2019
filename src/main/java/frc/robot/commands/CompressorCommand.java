@@ -22,16 +22,17 @@ public class CompressorCommand extends Command {
     }
 
     // Called repeatedly when this Command is scheduled to run
+    // Allows A button to control piston movement and B button to regulate compressor
     @Override
     protected void execute() {
         if (Robot.oi.controller.getBButtonPressed()) {
-            Robot.compressSystem.solenoidZero();
-            System.out.println("Button pressing working");
+            //A Button
+            Robot.compressSystem.PistonMovement();
         }
 
         if (Robot.oi.controller.getXButtonPressed()) {
+            //B Button
             Robot.compressSystem.Compress();
-            System.out.println("Compressor working");
         }
     }
 

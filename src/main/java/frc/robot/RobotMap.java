@@ -18,7 +18,8 @@ public class RobotMap
     public static final int COMPRESSOR = 0;
 
     //SOLENOIDS
-    public static final int SOLENOIDONE = 0;
+    public static final int SOLENOIDZERO = 0;
+    public static final int SOLENOIDONE = 1;
 
 
     //BUTTONS ARE MESSED UP -_-

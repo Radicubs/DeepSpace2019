@@ -16,10 +16,12 @@ public class CompressSystem extends Subsystem {
 
     private Compressor pneumaticCompressor;
     private Solenoid solenoidZero;
+    private Solenoid solenoidOne;
 
     public CompressSystem() {
         pneumaticCompressor = new Compressor(RobotMap.COMPRESSOR);
-        solenoidZero = new Solenoid(RobotMap.SOLENOIDONE);
+        solenoidZero = new Solenoid(RobotMap.SOLENOIDZERO);
+        solenoidOne = new Solenoid(RobotMap.SOLENOIDONE);
     }
 
     private boolean compressorBool = true;
@@ -29,12 +31,19 @@ public class CompressSystem extends Subsystem {
         pneumaticCompressor.setClosedLoopControl(compressorBool);
     }
 
-    private boolean currentSolenoidZero = false;
+    private boolean pistonBool = false;
 
-    public void solenoidZero() {
-        currentSolenoidZero = !currentSolenoidZero;
-        solenoidZero.set(currentSolenoidZero);
-        System.out.println("Should've switched...");
+    //Opens and closes the pneumatic piston
+    public void PistonMovement() {
+        pistonBool = !pistonBool;
+        if (pistonBool) {
+            solenoidZero.set(true);
+            solenoidOne.set(false);
+        }
+        else {
+            solenoidZero.set(false);
+            solenoidOne.set(true);
+        }
     }
 
     public void initDefaultCommand() {
