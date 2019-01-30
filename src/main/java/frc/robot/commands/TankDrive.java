@@ -22,6 +22,7 @@ public class TankDrive extends Command {
 
     @Override
     protected void execute() {
+        /*
         double leftSpeed = Robot.oi.controller.getY(Hand.kLeft);
         double rightSpeed = Robot.oi.controller.getY(Hand.kRight);
 
@@ -43,6 +44,7 @@ public class TankDrive extends Command {
 
         Robot.driveBase.drive(adjustedLSpeed,//Y-Axis of left joystick
                               adjustedRSpeed);//Y-Axis of right joystick
+                              */
     }
 
     //takes the exponent of the positive value

@@ -7,6 +7,7 @@ import frc.robot.Robot;
 
 
 public class ArcadeDrive extends Command {
+    static double VOLTS_TO_DIST;
 
     public ArcadeDrive() {
         //requires is method that tells commands which subsystems will be using it
@@ -17,7 +18,7 @@ public class ArcadeDrive extends Command {
 
     @Override
     protected void initialize() {
-        double VOLTS_TO_DIST = 1.0;
+        VOLTS_TO_DIST = 1.0; //Or some other constant
     }
 
     public static double getVoltage() {
@@ -25,11 +26,12 @@ public class ArcadeDrive extends Command {
       }
       
       public static double getDistance() {
-        return getVoltage() * 1; //VOLTS_TO_DIST;
+        return getVoltage() * VOLTS_TO_DIST;c
       }
 
     @Override
     protected void execute() {
+        /*
         double forwardSpeed = Robot.oi.controller.getY(Hand.kLeft);
         double rotationalSpeed = Robot.oi.controller.getX(Hand.kLeft);
 
@@ -48,11 +50,12 @@ public class ArcadeDrive extends Command {
         System.out.println("Raw Forward Speed: " + forwardSpeed);
         System.out.println("Raw Rotational Speed: " + rotationalSpeed);
         System.out.println("Magnitude: " + magnitude);
-
-        System.out.println(getDistance());
-
+*/
+        System.out.println("Distance detected: " + getDistance());
+/*
         Robot.driveBase.drive(adjustedFSpeed,//Y-Axis of left joystick
                               adjustedRSpeed);//X-Axis of left joystick
+                              */
     }
 
     //takes the exponent of the positive value

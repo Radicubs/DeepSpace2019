@@ -8,10 +8,10 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.RobotMap;
 
 public class DriveBase extends Subsystem {
-
+/*
     private Spark LeftChassisMotor;
     private Spark RightChassisMotor;
-
+*/
 
     //This takes joystick inputs and converts it to appropriate motor inputs depending on the drive mode
     private DifferentialDrive differentialDrive;
@@ -20,6 +20,7 @@ public class DriveBase extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
     public void drive(double adjustedFSpeed, double adjustedRSpeed) {
+        /*
         if(RobotMap.ARCADE_DRIVE) {
             differentialDrive.arcadeDrive(adjustedFSpeed, adjustedRSpeed, false);
         }
@@ -29,7 +30,7 @@ public class DriveBase extends Subsystem {
 
         System.out.println("Left Motor Speed: " + LeftChassisMotor.get());
         System.out.println("Right Motor Speed: " + RightChassisMotor.get() + "\n");
-
+*/
         //This old version uses the default of squaring instead of cubing
         //differentialDrive.arcadeDrive(forwardSpeed, rotationalSpeed, false);
 
@@ -45,6 +46,7 @@ public class DriveBase extends Subsystem {
     }
 
     public DriveBase() {
+        /*
         LeftChassisMotor = new Spark(RobotMap.LEFT_CHASSIS_MOTOR);
         RightChassisMotor = new Spark(RobotMap.RIGHT_CHASSIS_MOTOR);
 
@@ -53,6 +55,7 @@ public class DriveBase extends Subsystem {
         //the default deadband was 0.02, setting it lower here
         //because the cubing messes it up otherwise?
         differentialDrive.setDeadband(0.00);
+        */
     }
 
 
