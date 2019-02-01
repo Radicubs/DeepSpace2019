@@ -6,11 +6,9 @@ package frc.robot;/*------------------------------------------------------------
 /*----------------------------------------------------------------------------*/
 
 
-import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.AnalogInput;
 import frc.robot.subsystems.*;
 
 
@@ -19,17 +17,15 @@ public class Robot extends TimedRobot
 {
     public static OI oi;
     public static DriveBase driveBase;
-    public static Compressor comp;
-    public static Ultrasonic ultra;
-    public static AnalogInput mb1013;
+    public static CompressSystem compressSystem;
 
     @Override
     public void robotInit() 
     {
         oi = new OI();
         driveBase = new DriveBase();
-        comp = new Compressor(RobotMap.COMPRESSOR);
-        mb1013 = new AnalogInput(0);
+        compressSystem = new CompressSystem();
+        CameraServer.getInstance().startAutomaticCapture();
     }
 
 

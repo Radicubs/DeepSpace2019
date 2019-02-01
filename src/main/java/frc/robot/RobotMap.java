@@ -14,13 +14,18 @@ public class RobotMap
     //CONTROLLER
     public static final int CONTROLLER = 0;
 
-    //DRIVE MODE
-    public static final boolean ARCADE_DRIVE = true;
-
     //COMPRESSOR
     public static final int COMPRESSOR = 0;
 
-    //Ultrasonic 
-    public static final int ULTRASONIC_PING = 0;
-    public static final int ULTRASONIC_ECHO = 1;
+    //SOLENOIDS
+    public static final int SOLENOIDZERO = 0;
+    public static final int SOLENOIDONE = 1;
+
+
+    //BUTTONS ARE MESSED UP -_-
+    //Robot.oi.controller.getAbutton() ==> actually controllers X button
+    //Robot.oi.controller.getBbutton() ==> actually controllers A button
+    //Robot.oi.controller.getXbutton() ==> actually controllers B button
+    //Robot.oi.controller.getYbutton() ==> actually controllers Y button
+
 }
