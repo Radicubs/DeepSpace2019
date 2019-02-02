@@ -36,7 +36,7 @@ public class ArcadeDrive extends Command {
         
         adjustedFSpeed *= multiplier;
         adjustedRSpeed *= multiplier;
-
+        System.out.println("Arcade Drive");
         System.out.println("Raw Forward Speed: " + forwardSpeed);
         System.out.println("Raw Rotational Speed: " + rotationalSpeed);
         System.out.println("Magnitude: " + magnitude);

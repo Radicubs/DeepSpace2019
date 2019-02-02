@@ -30,7 +30,7 @@ public class TankDrive extends Command {
         double adjustedLSpeed = -adjustByExponent(leftSpeed, scalingExponent);
         double adjustedRSpeed = -adjustByExponent(rightSpeed, scalingExponent);
         
-
+        System.out.println("Tank Drive");
         System.out.println("Raw Left Speed: " + leftSpeed);
         System.out.println("Raw Right Speed: " + rightSpeed);
         System.out.println("Scaling Exponent: " + scalingExponent);
