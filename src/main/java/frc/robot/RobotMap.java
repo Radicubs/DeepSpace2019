@@ -21,6 +21,9 @@ public class RobotMap
     public static final int SOLENOIDZERO = 0;
     public static final int SOLENOIDONE = 1;
 
+    //ULTRASONIC SENSOR PORTS
+    public static final int ULTRASONIC = 0;
+
 
     //BUTTONS ARE MESSED UP -_-
     //Robot.oi.controller.getAbutton() ==> actually controllers X button
