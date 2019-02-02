@@ -28,10 +28,13 @@ public class DriveBase extends Subsystem {
     // here. Call these from Commands.
     public void drive(double adjustedFSpeed, double adjustedRSpeed) {
         if(RobotMap.ARCADE_DRIVE) {
-            differentialDrive.arcadeDrive(adjustedFSpeed, adjustedRSpeed, false);
+            //differentialDrive.arcadeDrive(adjustedFSpeed, adjustedRSpeed, false);
+            LeftChassisMotor.set(adjustedFSpeed);
+            RightChassisMotor.set(adjustedRSpeed);
         }
         else {
-            differentialDrive.tankDrive(adjustedFSpeed, adjustedRSpeed, false);
+            LeftChassisMotor.set(adjustedFSpeed);
+            RightChassisMotor.set(adjustedRSpeed);
         }
 
         System.out.println("Left Motor Speed: " + LeftChassisMotor.get());
@@ -76,11 +79,11 @@ public class DriveBase extends Subsystem {
         RightFollowerOne.follow(RightChassisMotor);
         RightFollowerTwo.follow(RightChassisMotor);
 
-        differentialDrive = new DifferentialDrive(LeftChassisMotor, RightChassisMotor);
+        //differentialDrive = new DifferentialDrive(LeftChassisMotor, RightChassisMotor);
         
         //the default deadband was 0.02, setting it lower here
         //because the cubing messes it up otherwise?
-        differentialDrive.setDeadband(0.00);
+        //differentialDrive.setDeadband(0.00);
     }
 
 
