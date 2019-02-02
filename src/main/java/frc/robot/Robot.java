@@ -18,6 +18,7 @@ public class Robot extends TimedRobot
     public static OI oi;
     public static DriveBase driveBase;
     public static CompressSystem compressSystem;
+    public static UltrasonicSystem ultrasonicSystem;
 
     @Override
     public void robotInit() 
@@ -26,6 +27,7 @@ public class Robot extends TimedRobot
         driveBase = new DriveBase();
         compressSystem = new CompressSystem();
         CameraServer.getInstance().startAutomaticCapture();
+        ultrasonicSystem = new UltrasonicSystem();
     }
 
 
