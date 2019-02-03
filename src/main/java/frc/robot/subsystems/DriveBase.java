@@ -59,15 +59,12 @@ public class DriveBase extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
     public void drive(double adjustedFSpeed, double adjustedRSpeed) {
-        if(RobotMap.ARCADE_DRIVE) {
-            //differentialDrive.arcadeDrive(adjustedFSpeed, adjustedRSpeed, false);
+
+        //differentialDrive.arcadeDrive(adjustedFSpeed, adjustedRSpeed, false);
             LeftChassisMotor.set(ControlMode.PercentOutput, adjustedFSpeed);
             RightChassisMotor.set(ControlMode.PercentOutput, adjustedRSpeed);
-        }
-        else {
-            LeftChassisMotor.set(ControlMode.PercentOutput, adjustedFSpeed);
-            RightChassisMotor.set(ControlMode.PercentOutput, adjustedRSpeed);
-        }
+        
+
 
         System.out.println("Left Motor Speed: " + LeftChassisMotor.getSelectedSensorVelocity());
         System.out.println("Right Motor Speed: " + RightChassisMotor.getSelectedSensorVelocity());
@@ -91,7 +88,7 @@ public class DriveBase extends Subsystem {
     //It will run the command ArcadeDrive
     //Therefore driving will always be enabled
     public void initDefaultCommand() {
-        setDefaultCommand(new TankDrive());
+        setDefaultCommand(new ArcadeDrive());
     }
 }
 
