@@ -22,8 +22,10 @@ public class ArcadeDrive extends Command {
 
     @Override
     protected void execute() {
-        double forwardSpeed = Robot.oi.controller.getY(Hand.kLeft);
-        double rotationalSpeed = Robot.oi.controller.getX(Hand.kLeft);
+        //double forwardSpeed = Robot.oi.controller.getY(Hand.kLeft);
+        //double rotationalSpeed = Robot.oi.controller.getX(Hand.kLeft);
+        double forwardSpeed = Robot.oi.joystick.getY(Hand.kLeft);
+        double rotationalSpeed = Robot.oi.joystick.getX(Hand.kLeft);
 
         //inverting these values make it work more intuitively
         double adjustedFSpeed = -adjustByExponent(forwardSpeed, 3);

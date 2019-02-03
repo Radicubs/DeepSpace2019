@@ -14,32 +14,25 @@ public class CompressorCommand extends Command {
     public CompressorCommand() {
         requires(Robot.compressSystem);
     }
-
-    // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-        Robot.compressSystem.Compress();
+
     }
 
+    boolean stopOrNot = false;
+
     // Called repeatedly when this Command is scheduled to run
-    // Allows A button to control piston movement and B button to regulate compressor
+    // Compresses the compressor and fills up air tank
     @Override
     protected void execute() {
-        if (Robot.oi.controller.getBButtonPressed()) {
-            //A Button
-            Robot.compressSystem.PistonMovement();
-        }
-
-        if (Robot.oi.controller.getXButtonPressed()) {
-            //B Button
-            Robot.compressSystem.Compress();
-        }
+        Robot.compressSystem.Compress();
+        stopOrNot = true;
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        return false;
+        return stopOrNot;
     }
 
     // Called once after isFinished returns true

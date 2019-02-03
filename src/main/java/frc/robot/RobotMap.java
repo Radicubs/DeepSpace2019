@@ -17,7 +17,10 @@ public class RobotMap
     public static final int RIGHT_FOLLOWER_TWO = 4;
     
     //CONTROLLER
-    public static final int CONTROLLER = 0;
+    //public static final int CONTROLLER = 0;
+
+    //JOYSTICKS
+    public static final int JOYSTICK = 0;
 
     //COMPRESSOR
     public static final int COMPRESSOR = 0;
