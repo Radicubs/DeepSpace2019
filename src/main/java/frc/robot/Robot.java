@@ -1,4 +1,5 @@
-package frc.robot;/*----------------------------------------------------------------------------*/
+package frc.robot;
+/*----------------------------------------------------------------------------*/
 /* Copyright (c) 2017 FIRST. All Rights Reserved.                             */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
@@ -30,7 +31,6 @@ public class Robot extends TimedRobot
         compressSystem = new CompressSystem();
         CameraServer.getInstance().startAutomaticCapture();
         ultrasonicSystem = new UltrasonicSystem();
-        new CompressorCommand();
     }
 
 
@@ -72,7 +72,7 @@ public class Robot extends TimedRobot
     {
         OI.toggleAllButtons();
 
-        if (OI.toggleOn1) {
+        if (OI.toggleOn0) {
             new PistonCommand();
         }
 

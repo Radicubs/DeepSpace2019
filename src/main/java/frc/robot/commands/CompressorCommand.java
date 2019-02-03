@@ -10,13 +10,22 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
+
+
+///////////////////////// Probably not using this command but if need be, it's here
+///////////////////////// cuz compressor will always be on to maximize air pressure
+///////////////////////// within the tank.
+
+
+
 public class CompressorCommand extends Command {
+    
     public CompressorCommand() {
         requires(Robot.compressSystem);
     }
     @Override
     protected void initialize() {
-
+        
     }
 
     boolean stopOrNot = false;

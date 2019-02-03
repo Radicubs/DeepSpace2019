@@ -9,6 +9,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.*;
 
 public class OI
 {
@@ -21,21 +22,21 @@ public class OI
     }
 
     public static void toggleAllButtons() {
-        toggleButton1();
+        toggleXbutton();
     }
 
     //toggleButton1 allows for a single press of a button to signal whatever in code
-    static boolean toggleOn1 = false;
-    static boolean togglePressed1 = false;
+    static boolean toggleOn0 = false;
+    static boolean togglePressed0 = false;
 
-    public static void toggleButton1() {
-        if (joystick.getRawButton(0)) {
-            if (!togglePressed1) {
-                toggleOn1 = !toggleOn1;
-                togglePressed1 = true;
+    public static void toggleXbutton() {
+        if (joystick.getRawButton(RobotMap.XBUTTON)) {
+            if (!togglePressed0) {
+                toggleOn0 = !toggleOn0;
+                togglePressed0 = true;
             }
             else {
-                togglePressed1 = false;
+                togglePressed0 = false;
             }
         }
     }
