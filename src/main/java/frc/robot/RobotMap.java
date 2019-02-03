@@ -8,8 +8,13 @@ package frc.robot;/*------------------------------------------------------------
 public class RobotMap
 {
     //PWM MOTORS
-    public static final int RIGHT_CHASSIS_MOTOR = 0;
-    public static final int LEFT_CHASSIS_MOTOR = 1;
+    public static final int LEFT_TALON = 7;
+    public static final int LEFT_FOLLOWER_ONE = 5;
+    public static final int LEFT_FOLLOWER_TWO = 3;
+
+    public static final int RIGHT_TALON = 6;
+    public static final int RIGHT_FOLLOWER_ONE = 2;
+    public static final int RIGHT_FOLLOWER_TWO = 4;
     
     //CONTROLLER
     public static final int CONTROLLER = 0;
