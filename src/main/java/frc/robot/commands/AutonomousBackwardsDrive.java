@@ -24,18 +24,14 @@ public class AutonomousBackwardsDrive extends InstantCommand {
   }
 
   // Called once when the command executes
+
   @Override
   protected void initialize() {
 
-    while (Robot.ultrasonicSystem.getDistance() > 10) {
-      Robot.driveBase.drive(-.5, -.5);
+    while (Robot.ultrasonicSystem.getDistance() < 30) {
+      Robot.driveBase.drive(Robot.ultrasonicSystem.getDistance()/-20, Robot.ultrasonicSystem.getDistance()/-20 );
     }
-    //Uses && so that it won't go backward constantly
-    while (Robot.ultrasonicSystem.getDistance() > 20 && Robot.ultrasonicSystem.getDistance() < 30) {
-      Robot.driveBase.drive(- 1, - 1);
-
+    
     }
 
   }
-
-}
