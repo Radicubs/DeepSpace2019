@@ -27,11 +27,8 @@ public class AutonomousForwardDrive extends InstantCommand
   @Override
   protected void initialize() {
     
-    
-    while (Robot.ultrasonicSystem.getDistance() > 20) {
-      Robot.driveBase.drive(Robot.ultrasonicSystem.getDistance()/20, Robot.ultrasonicSystem.getDistance()/20);
-    }
-    // Made it 10.5 because Ultrasonic outputs are always greater than 10.31; Made it to
+  
+    // Made it 10.5 because Ultrasonic outputs are always greater than 10.31; Makes it to
     // where it won't constantly go forward
     while (Robot.ultrasonicSystem.getDistance() > 10.5) {
       Robot.driveBase.drive(Robot.ultrasonicSystem.getDistance()/20, Robot.ultrasonicSystem.getDistance()/20);  
