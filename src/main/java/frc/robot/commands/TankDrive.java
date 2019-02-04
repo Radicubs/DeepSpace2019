@@ -26,21 +26,15 @@ public class TankDrive extends Command {
         double leftSpeed = Robot.oi.controller.getY(Hand.kLeft);
         double rightSpeed = Robot.oi.controller.getY(Hand.kRight);
 
+        double scalingExponent = 0.5f;
         //inverting these values make it work more intuitively
-        double adjustedLSpeed = -adjustByExponent(leftSpeed, 3);
-        double adjustedRSpeed = -adjustByExponent(rightSpeed, 3);
-
-        //this magnitude assumes the range of the controller is a perfect circle
-        //it actually extends slightly beyond that, but it should be fine?
-        double magnitude = Math.sqrt(leftSpeed * leftSpeed + rightSpeed * rightSpeed);
-        double multiplier = magnitude / Math.max(Math.abs(adjustedLSpeed), Math.abs(adjustedRSpeed));
+        double adjustedLSpeed = -adjustByExponent(leftSpeed, scalingExponent);
+        double adjustedRSpeed = -adjustByExponent(rightSpeed, scalingExponent);
         
-        adjustedLSpeed *= multiplier;
-        adjustedRSpeed *= multiplier;
-
+        System.out.println("Tank Drive");
         System.out.println("Raw Left Speed: " + leftSpeed);
         System.out.println("Raw Right Speed: " + rightSpeed);
-        System.out.println("Magnitude: " + magnitude);
+        System.out.println("Scaling Exponent: " + scalingExponent);
 
         Robot.driveBase.drive(adjustedLSpeed,//Y-Axis of left joystick
                               adjustedRSpeed);//Y-Axis of right joystick
