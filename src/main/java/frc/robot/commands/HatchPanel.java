@@ -16,6 +16,7 @@ public class HatchPanel extends CommandGroup {
    */
   public HatchPanel() {
 
+    //runs these commands in a sequence
     addSequential(new AutonomousForwardDrive());
     //addSequential(new ClapperOpener()); --- uncomment this when we have figured out how to automate the clapper.
     addSequential(new AutonomousBackwardsDrive());
