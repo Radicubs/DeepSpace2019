@@ -9,13 +9,13 @@ package frc.robot;
 public class RobotMap
 {
     //PWM MOTORS
-    public static final int LEFT_TALON = 7;
-    public static final int LEFT_FOLLOWER_ONE = 5;
-    public static final int LEFT_FOLLOWER_TWO = 3;
+    public static final int LEFT_TALON = 6;
+    public static final int LEFT_FOLLOWER_ONE = 4;
+    public static final int LEFT_FOLLOWER_TWO = 2;
 
-    public static final int RIGHT_TALON = 6;
-    public static final int RIGHT_FOLLOWER_ONE = 2;
-    public static final int RIGHT_FOLLOWER_TWO = 4;
+    public static final int RIGHT_TALON = 7;
+    public static final int RIGHT_FOLLOWER_ONE = 5;
+    public static final int RIGHT_FOLLOWER_TWO = 3;
     
     //CONTROLLER
     //public static final int CONTROLLER = 0;
@@ -23,19 +23,25 @@ public class RobotMap
     //JOYSTICKS
     public static final int JOYSTICK = 0;
 
+    //JOYSTICK AXES
+    public static final int LEFTXAXIS = 0;
+    public static final int LEFTYAXIS = 1;
+    public static final int RIGHTXAXIS = 4;
+    public static final int RIGHTYAXIS = 5;
+
     //BUTTONS
-    public static final int XBUTTON = 0;
-    public static final int ABUTTON = 1;
-    public static final int BBUTTON = 2;
-    public static final int YBUTTON = 3;
-    public static final int LBBUTTON = 4;
-    public static final int RBBUTTON = 5;
-    public static final int LTBUTTON = 6;
-    public static final int RTBUTTON = 7;
-    public static final int GOBACKBUTTON = 8;
-    public static final int STARTBUTTON = 9;
-    public static final int CLICKLEFTJOYSTICK = 10;
-    public static final int CLICKRIGHTJOYSTICK = 11;
+    public static final int XBUTTON = 1;
+    public static final int ABUTTON = 2;
+    public static final int BBUTTON = 3;
+    public static final int YBUTTON = 4;
+    public static final int LBBUTTON = 5;
+    public static final int RBBUTTON = 6;
+    public static final int LTBUTTON = 7;
+    public static final int RTBUTTON = 8;
+    public static final int GOBACKBUTTON = 9;
+    public static final int STARTBUTTON = 10;
+    public static final int CLICKLEFTJOYSTICK = 11;
+    public static final int CLICKRIGHTJOYSTICK = 12;
 
     //COMPRESSOR
     public static final int COMPRESSOR = 0;
@@ -48,7 +54,7 @@ public class RobotMap
     public static final int ULTRASONIC = 0;
 
     //PID Drive Constants
-    public static final double kP = 0.0;
+    public static final double kP = 20.0;
     public static final double kI = 0.0;
     public static final double kD = 0.0;
 

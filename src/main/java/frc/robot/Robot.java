@@ -16,7 +16,7 @@ import frc.robot.commands.*;
 
 
 // If you rename or move this class, update the build.properties file in the project root
-public class Robot extends TimedRobot 
+public class Robot extends TimedRobot
 {
     public static OI oi;
     public static DriveBase driveBase;
@@ -29,7 +29,7 @@ public class Robot extends TimedRobot
         oi = new OI();
         driveBase = new DriveBase();
         compressSystem = new CompressSystem();
-        CameraServer.getInstance().startAutomaticCapture();
+        //CameraServer.getInstance().startAutomaticCapture();
         ultrasonicSystem = new UltrasonicSystem();
     }
 
@@ -72,11 +72,7 @@ public class Robot extends TimedRobot
     {
         Scheduler.getInstance().run();
         OI.toggleAllButtons();
-        /*
-        if (OI.toggleOn0) {
-            new PistonCommand();
-        }
-        */
+        
     }
 
 

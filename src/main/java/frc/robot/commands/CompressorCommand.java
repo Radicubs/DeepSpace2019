@@ -10,14 +10,6 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-
-
-///////////////////////// Probably not using this command but if need be, it's here
-///////////////////////// cuz compressor will always be on to maximize air pressure
-///////////////////////// within the tank.
-
-
-
 public class CompressorCommand extends Command {
     
     public CompressorCommand() {
@@ -34,8 +26,14 @@ public class CompressorCommand extends Command {
     // Compresses the compressor and fills up air tank
     @Override
     protected void execute() {
-        Robot.compressSystem.Compress();
-        stopOrNot = true;
+        if (Robot.oi.toggleOnX) {
+            Robot.compressSystem.PistonMovement();
+            Robot.oi.toggleOnX = false;
+        }
+        if (Robot.oi.toggleOnA) {
+            Robot.compressSystem.Compress();
+            Robot.oi.toggleOnA = false;
+        }
     }
 
     // Make this return true when this Command no longer needs to run execute()

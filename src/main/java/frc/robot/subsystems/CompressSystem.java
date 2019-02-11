@@ -22,6 +22,7 @@ public class CompressSystem extends Subsystem {
         pneumaticCompressor = new Compressor(RobotMap.COMPRESSOR);
         solenoidZero = new Solenoid(RobotMap.SOLENOIDZERO);
         solenoidOne = new Solenoid(RobotMap.SOLENOIDONE);
+        solenoidZero.set(true);
         Compress();
     }
 

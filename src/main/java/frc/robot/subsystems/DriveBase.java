@@ -15,37 +15,38 @@ import frc.robot.commands.TankDrive;
 public class DriveBase extends Subsystem {
 
     private TalonSRX LeftChassisMotor;
-    //private VictorSPX LeftFollowerOne;
-    //private VictorSPX LeftFollowerTwo;
+    private VictorSPX LeftFollowerOne;
+    private VictorSPX LeftFollowerTwo;
 
     private TalonSRX RightChassisMotor;
-    //private VictorSPX RightFollowerOne;
-    //private VictorSPX RightFollowerTwo;
+    private VictorSPX RightFollowerOne;
+    private VictorSPX RightFollowerTwo;
 
     public DriveBase() {
         /*CAN Motor Setup*/
         //Initialization
+
         LeftChassisMotor = new TalonSRX(RobotMap.LEFT_TALON);
-        //LeftFollowerOne = new VictorSPX(RobotMap.LEFT_FOLLOWER_ONE);
-        //LeftFollowerTwo = new VictorSPX(RobotMap.LEFT_FOLLOWER_TWO);
+        LeftFollowerOne = new VictorSPX(RobotMap.LEFT_FOLLOWER_ONE);
+        LeftFollowerTwo = new VictorSPX(RobotMap.LEFT_FOLLOWER_TWO);
 
         RightChassisMotor = new TalonSRX(RobotMap.RIGHT_TALON);
-        //RightFollowerOne = new VictorSPX(RobotMap.RIGHT_FOLLOWER_ONE);
-        //RightFollowerTwo = new VictorSPX(RobotMap.RIGHT_FOLLOWER_TWO);
+        RightFollowerOne = new VictorSPX(RobotMap.RIGHT_FOLLOWER_ONE);
+        RightFollowerTwo = new VictorSPX(RobotMap.RIGHT_FOLLOWER_TWO);
 
         //Factory Default Configurations
         LeftChassisMotor.configFactoryDefault();
-        //LeftFollowerOne.configFactoryDefault();
-        //LeftFollowerTwo.configFactoryDefault();
+        LeftFollowerOne.configFactoryDefault();
+        LeftFollowerTwo.configFactoryDefault();
         RightChassisMotor.configFactoryDefault();
-        //RightFollowerOne.configFactoryDefault();
-        //RightFollowerTwo.configFactoryDefault();
+        RightFollowerOne.configFactoryDefault();
+        RightFollowerTwo.configFactoryDefault();
 
         //Configure Followers
-        //LeftFollowerOne.follow(LeftChassisMotor);
-        //LeftFollowerTwo.follow(LeftChassisMotor);
-        //RightFollowerOne.follow(RightChassisMotor);
-        //RightFollowerTwo.follow(RightChassisMotor);
+        LeftFollowerOne.follow(LeftChassisMotor);
+        LeftFollowerTwo.follow(LeftChassisMotor);
+        RightFollowerOne.follow(RightChassisMotor);
+        RightFollowerTwo.follow(RightChassisMotor);
 
         //differentialDrive = new DifferentialDrive(LeftChassisMotor, RightChassisMotor);
         
@@ -59,37 +60,49 @@ public class DriveBase extends Subsystem {
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
-    public void drive(double adjustedFSpeed, double adjustedRSpeed) {
+    public void drive(double leftSpeed, double rightSpeed) {
 
         //differentialDrive.arcadeDrive(adjustedFSpeed, adjustedRSpeed, false);
-        LeftChassisMotor.set(ControlMode.PercentOutput, adjustedFSpeed);
-        RightChassisMotor.set(ControlMode.PercentOutput, adjustedRSpeed);
-        
+        //LeftChassisMotor.set(ControlMode.PercentOutput, adjustedFSpeed);
+        //RightChassisMotor.set(ControlMode.PercentOutput, adjustedRSpeed);
 
-
-        System.out.println("Left Motor Speed: " + LeftChassisMotor.getSelectedSensorVelocity());
-        System.out.println("Right Motor Speed: " + RightChassisMotor.getSelectedSensorVelocity());
+        //System.out.println("Left Motor Speed: " + LeftChassisMotor.getSelectedSensorVelocity());
+        //System.out.println("Right Motor Speed: " + RightChassisMotor.getSelectedSensorVelocity());
 
         //This old version uses the default of squaring instead of cubing
-        //differentialDrive.arcadeDrive(forwardSpeed, rotationalSpeed, false);
+        //arcadeDrive(adjustedFSpeed, adjustedRSpeed);
 
-        // leftSpeed = forwardSpeed;
-        // rightSpeed = forwardSpeed;
+        /*
+        double leftSpeed = adjustedFSpeed;
+        double rightSpeed = adjustedFSpeed;
 
-        // leftSpeed += rotationalSpeed * 0.5;
-        // rightSpeed += rotationalSpeed * 0.5;
+        leftSpeed += adjustedRSpeed * 0.5;
+        rightSpeed += adjustedRSpeed * 0.5;
 
-        // LeftChassisMotor.set(leftSpeed);
-        // RightChassisMotor.set(-rightSpeed);
+        LeftChassisMotor.set(ControlMode.PercentOutput, leftSpeed);
+        RightChassisMotor.set(ControlMode.PercentOutput, -rightSpeed);
+        */
 
+        //This implements the same algorithm in the DifferentialDrive class, which we can't use
+        LeftChassisMotor.set(ControlMode.PercentOutput, limit(leftSpeed));
+        RightChassisMotor.set(ControlMode.PercentOutput, limit(rightSpeed));
+        
     }
 
+    private double limit (double x) {
+        if (x > 1.0) {
+            return 1.0;
+        }
+        else if (x < -1.0) {
+            return -1.0;
+        }
+        return x;
+    }
 
     //Whenever this subsystem is idle
     //It will run the command ArcadeDrive
     //Therefore driving will always be enabled
     public void initDefaultCommand() {
-        setDefaultCommand(new ArcadeDrive());
+        setDefaultCommand(new TankDrive());
     }
 }
-

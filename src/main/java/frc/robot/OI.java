@@ -8,35 +8,64 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.*;
 
 public class OI
 {
-    //public XboxController controller;
-    public static Joystick joystick;
+    public static Joystick driveJoystick;
 
     public OI() {
-        //controller = new XboxController(RobotMap.CONTROLLER);
-        joystick = new Joystick(RobotMap.JOYSTICK);
+        driveJoystick = new Joystick(RobotMap.JOYSTICK);
     }
 
     public static void toggleAllButtons() {
         toggleXbutton();
+        toggleAbutton();
+        toggleBbutton();
     }
 
-    //toggleButton1 allows for a single press of a button to signal whatever in code
-    static boolean toggleOn0 = false;
-    static boolean togglePressed0 = false;
+    //toggleXbutton allows for a single press of the X button to signal whatever in code
+    public static boolean toggleOnX = false;
+    private static boolean togglePressed1 = false;
 
     public static void toggleXbutton() {
-        if (joystick.getRawButton(RobotMap.XBUTTON)) {
-            if (!togglePressed0) {
-                toggleOn0 = !toggleOn0;
-                togglePressed0 = true;
+        if (driveJoystick.getRawButtonPressed(RobotMap.XBUTTON)) {
+            if (!togglePressed1) {
+                toggleOnX = !toggleOnX;
+                togglePressed1 = true;
             }
             else {
-                togglePressed0 = false;
+                togglePressed1 = false;
+            }
+        }
+    }
+
+    public static boolean toggleOnA = false;
+    private static boolean togglePressed2 = false;
+
+    public static void toggleAbutton() {
+        if (driveJoystick.getRawButtonPressed(RobotMap.ABUTTON)) {
+            if (!togglePressed2) {
+                toggleOnA = !toggleOnA;
+                togglePressed2 = true;
+            }
+            else {
+                togglePressed2 = false;
+            }
+        }
+    }
+
+    public static boolean toggleOnB = false;
+    private static boolean togglePressed3 = false;
+
+    public static void toggleBbutton() {
+        if (driveJoystick.getRawButtonPressed(RobotMap.BBUTTON)) {
+            if (!togglePressed3) {
+                toggleOnB = !toggleOnB;
+                togglePressed3 = true;
+            }
+            else {
+                togglePressed3 = false;
             }
         }
     }
