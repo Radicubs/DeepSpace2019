@@ -36,13 +36,20 @@ public class ArcadeDrive extends Command {
         
         adjustedFSpeed *= multiplier;
         adjustedRSpeed *= multiplier;
-        System.out.println("Arcade Drive");
-        System.out.println("Raw Forward Speed: " + forwardSpeed);
-        System.out.println("Raw Rotational Speed: " + rotationalSpeed);
-        System.out.println("Magnitude: " + magnitude);
+        //System.out.println("Arcade Drive");
+        //System.out.println("Raw Forward Speed: " + forwardSpeed);
+        //System.out.println("Raw Rotational Speed: " + rotationalSpeed);
+        //System.out.println("Magnitude: " + magnitude);
 
-        Robot.driveBase.drive(adjustedFSpeed,//Y-Axis of left joystick
-                              adjustedRSpeed);//X-Axis of left joystick
+        // here is where we need to implement some version
+        // of the differentialDrive's arcadeDrive method
+        // right here in this space
+        // just use adjustedFSpeed and adjustedRSpeed
+        // to do exactly what that thing does
+        // to get a leftSpeed and a rightSpeed
+        // that you just call drivebase.drive() with
+
+        Robot.driveBase.drive(leftSpeed, rightSpeed);//X-Axis of left joystick
     }
 
     //takes the exponent of the positive value
