@@ -1,43 +1,69 @@
 package frc.robot.subsystems;
 
-import frc.robot.commands.*;
-import edu.wpi.first.wpilibj.Spark;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.drive.RobotDriveBase;
 import frc.robot.RobotMap;
+import frc.robot.commands.ArcadeDrive;
+import frc.robot.commands.TankDrive;
 
 public class DriveBase extends Subsystem {
 
-    private Spark LeftChassisMotor;
-    private Spark RightChassisMotor;
+    private TalonSRX LeftChassisMotor;
+    private VictorSPX LeftFollowerOne;
+    private VictorSPX LeftFollowerTwo;
 
+    private TalonSRX RightChassisMotor;
+    private VictorSPX RightFollowerOne;
+    private VictorSPX RightFollowerTwo;
+
+    public DriveBase() {
+        /*CAN Motor Setup*/
+        //Initialization
+        LeftChassisMotor = new TalonSRX(RobotMap.LEFT_TALON);
+        LeftFollowerOne = new VictorSPX(RobotMap.LEFT_FOLLOWER_ONE);
+        LeftFollowerTwo = new VictorSPX(RobotMap.LEFT_FOLLOWER_TWO);
+
+        RightChassisMotor = new TalonSRX(RobotMap.RIGHT_TALON);
+        RightFollowerOne = new VictorSPX(RobotMap.RIGHT_FOLLOWER_ONE);
+        RightFollowerTwo = new VictorSPX(RobotMap.RIGHT_FOLLOWER_TWO);
+
+        //Factory Default Configurations
+        LeftChassisMotor.configFactoryDefault();
+        LeftFollowerOne.configFactoryDefault();
+        LeftFollowerTwo.configFactoryDefault();
+        RightChassisMotor.configFactoryDefault();
+        RightFollowerOne.configFactoryDefault();
+        RightFollowerTwo.configFactoryDefault();
+
+        //Configure Followers
+        LeftFollowerOne.follow(LeftChassisMotor);
+        LeftFollowerTwo.follow(LeftChassisMotor);
+        RightFollowerOne.follow(RightChassisMotor);
+        RightFollowerTwo.follow(RightChassisMotor);
+
+        //differentialDrive = new DifferentialDrive(LeftChassisMotor, RightChassisMotor);
+        
+        //the default deadband was 0.02, setting it lower here
+        //because the cubing messes it up otherwise?
+        //differentialDrive.setDeadband(0.00);
+    }
 
     //This takes joystick inputs and converts it to appropriate motor inputs depending on the drive mode
-    private DifferentialDrive differentialDrive;
-
+    //private DifferentialDrive differentialDrive;
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
-    public void drive(double forwardSpeed, double rotationalSpeed) {
-        
-        
-        //inverting these values make it work more intuitively
-        double adjustedFSpeed = -adjustByExponent(forwardSpeed, 3);
-        double adjustedRSpeed = -adjustByExponent(rotationalSpeed, .5);
+    public void drive(double leftSpeed, double rightSpeed) {
+        LeftChassisMotor.set(ControlMode.PercentOutput, leftSpeed);
+        RightChassisMotor.set(ControlMode.PercentOutput, rightSpeed);
 
-        //this magnitude assumes the range of the controller is a perfect circle
-        //it actually extends slightly beyond that, but it should be fine?
-        double magnitude = Math.sqrt(forwardSpeed * forwardSpeed + rotationalSpeed * rotationalSpeed);
-        double multiplier = magnitude / Math.max(Math.abs(adjustedFSpeed), Math.abs(adjustedRSpeed));
-
-        differentialDrive.arcadeDrive(multiplier * adjustedFSpeed, multiplier * adjustedRSpeed, false);
-        
-        System.out.println("Raw Forward Speed: " + forwardSpeed);
-        System.out.println("Raw Rotational Speed: " + rotationalSpeed);
-        System.out.println("Magnitude: " + magnitude);
-        System.out.println("Left Motor Speed: " + LeftChassisMotor.get());
-        System.out.println("Right Motor Speed: " + RightChassisMotor.get() + "\n");
+        System.out.println("Left Motor Speed: " + LeftChassisMotor.getSelectedSensorVelocity());
+        System.out.println("Right Motor Speed: " + RightChassisMotor.getSelectedSensorVelocity());
 
         //This old version uses the default of squaring instead of cubing
         //differentialDrive.arcadeDrive(forwardSpeed, rotationalSpeed, false);
@@ -53,28 +79,11 @@ public class DriveBase extends Subsystem {
 
     }
 
-    //takes the exponent of the positive value
-    //and copies the original sign
-    private static double adjustByExponent(double value, double exp) {
-        return Math.copySign(Math.pow(Math.abs(value), exp), value);
-    }
-
-    public DriveBase() {
-        LeftChassisMotor = new Spark(RobotMap.LEFT_CHASSIS_MOTOR);
-        RightChassisMotor = new Spark(RobotMap.RIGHT_CHASSIS_MOTOR);
-
-        differentialDrive = new DifferentialDrive(LeftChassisMotor, RightChassisMotor);
-        
-        //the default deadband was 0.02, setting it lower here
-        //because the cubing messes it up otherwise?
-        differentialDrive.setDeadband(0.00);
-    }
-
-
     //Whenever this subsystem is idle
     //It will run the command ArcadeDrive
     //Therefore driving will always be enabled
     public void initDefaultCommand() {
-        setDefaultCommand(new ArcadeDrive());
+        Command defaultCommand = RobotMap.ARCADE_DRIVE ? new ArcadeDrive() : new TankDrive();
+        setDefaultCommand(defaultCommand);
     }
 }
