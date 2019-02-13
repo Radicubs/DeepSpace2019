@@ -8,14 +8,19 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
-import frc.robot.*;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.commands.DriveTillWall;
+import edu.wpi.first.wpilibj.buttons.Button;
 
 public class OI
 {
     public static Joystick driveJoystick;
+    public static Button yButton;
 
     public OI() {
         driveJoystick = new Joystick(RobotMap.JOYSTICK);
+        yButton = new JoystickButton(driveJoystick, RobotMap.YBUTTON);
+        yButton.whenPressed(new DriveTillWall());
     }
 
     public static void toggleAllButtons() {
@@ -69,5 +74,4 @@ public class OI
             }
         }
     }
-
 }

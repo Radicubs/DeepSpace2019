@@ -7,12 +7,10 @@ package frc.robot;
 /*----------------------------------------------------------------------------*/
 
 
-import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.robot.subsystems.*;
 import frc.robot.OI;
-import frc.robot.commands.*;
 
 
 // If you rename or move this class, update the build.properties file in the project root
