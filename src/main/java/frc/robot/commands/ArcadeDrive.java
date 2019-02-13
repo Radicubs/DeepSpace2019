@@ -7,6 +7,8 @@ import frc.robot.Robot;
 
 public class ArcadeDrive extends Command {
 
+    double leftSpeed, rightSpeed;
+
     public ArcadeDrive() {
         //requires is method that tells commands which subsystems will be using it
         //IT IS MANDATORY
@@ -48,6 +50,13 @@ public class ArcadeDrive extends Command {
         // to do exactly what that thing does
         // to get a leftSpeed and a rightSpeed
         // that you just call drivebase.drive() with
+
+        leftSpeed = adjustedFSpeed + adjustedRSpeed; //These two lines apply rotational speed
+        rightSpeed = adjustedFSpeed - adjustedRSpeed; //by editing forward speeds
+
+        //If rotational speed if above 0, then the driver wants to go right.
+        //Subtracting the positive from the right slows down the right and adding the positive value to the left speeds the left up
+        //This works inversely when turning left.
 
         Robot.driveBase.drive(leftSpeed, rightSpeed);//X-Axis of left joystick
     }
