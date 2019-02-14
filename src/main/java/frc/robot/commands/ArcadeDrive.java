@@ -3,6 +3,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 
 public class ArcadeDrive extends Command {
@@ -24,41 +25,55 @@ public class ArcadeDrive extends Command {
 
     @Override
     protected void execute() {
-        double forwardSpeed = Robot.oi.controller.getY(Hand.kLeft);
-        double rotationalSpeed = Robot.oi.controller.getX(Hand.kLeft);
+        double ixSpeed = Robot.oi.controller.getY(Hand.kLeft);
+        double izRotation = Robot.oi.controller.getX(Hand.kLeft);
 
         //inverting these values make it work more intuitively
-        double adjustedFSpeed = -adjustByExponent(forwardSpeed, 3);
-        double adjustedRSpeed = -adjustByExponent(rotationalSpeed, .5);
+        double xSpeed = -adjustByExponent(ixSpeed, 3);
+        double zRotation = -adjustByExponent(izRotation, .5);
 
         //this magnitude assumes the range of the controller is a perfect circle
         //it actually extends slightly beyond that, but it should be fine?
-        double magnitude = Math.sqrt(forwardSpeed * forwardSpeed + rotationalSpeed * rotationalSpeed);
-        double multiplier = magnitude / Math.max(Math.abs(adjustedFSpeed), Math.abs(adjustedRSpeed));
+        double magnitude = Math.sqrt(ixSpeed * ixSpeed + izRotation * izRotation);
+        double multiplier = magnitude / Math.max(Math.abs(xSpeed), Math.abs(zRotation));
         
-        adjustedFSpeed *= multiplier;
-        adjustedRSpeed *= multiplier;
+        xSpeed *= multiplier;
+        zRotation *= multiplier;
         //System.out.println("Arcade Drive");
         //System.out.println("Raw Forward Speed: " + forwardSpeed);
         //System.out.println("Raw Rotational Speed: " + rotationalSpeed);
         //System.out.println("Magnitude: " + magnitude);
 
-        // here is where we need to implement some version
-        // of the differentialDrive's arcadeDrive method
-        // right here in this space
-        // just use adjustedFSpeed and adjustedRSpeed
-        // to do exactly what that thing does
-        // to get a leftSpeed and a rightSpeed
-        // that you just call drivebase.drive() with
+		// cap xSpeed and zRotation to (-1, 1)
+		xSpeed = Math.abs(xSpeed) < 1 ? xSpeed : Math.copySign(1, xSpeed));
+		zRotation = Math.abs(zRotation) < 1 ? zRotation : Math.copySign(1, zRotation));
 
-        leftSpeed = adjustedFSpeed + adjustedRSpeed; //These two lines apply rotational speed
-        rightSpeed = adjustedFSpeed - adjustedRSpeed; //by editing forward speeds
+		double leftMotorOutput;
+		double rightMotorOutput;
 
-        //If rotational speed if above 0, then the driver wants to go right.
-        //Subtracting the positive from the right slows down the right and adding the positive value to the left speeds the left up
-        //This works inversely when turning left.
+		double maxInput = Math.copySign(Math.max(Math.abs(xSpeed), Math.abs(zRotation)), xSpeed);
 
-        Robot.driveBase.drive(leftSpeed, rightSpeed);//X-Axis of left joystick
+		if (xSpeed >= 0.0) {
+		  // First quadrant, else second quadrant
+		  if (zRotation >= 0.0) {
+			leftMotorOutput = maxInput;
+			rightMotorOutput = xSpeed - zRotation;
+		  } else {
+			leftMotorOutput = xSpeed + zRotation;
+			rightMotorOutput = maxInput;
+		  }
+		} else {
+		  // Third quadrant, else fourth quadrant
+		  if (zRotation >= 0.0) {
+			leftMotorOutput = xSpeed + zRotation;
+			rightMotorOutput = maxInput;
+		  } else {
+			leftMotorOutput = maxInput;
+			rightMotorOutput = xSpeed - zRotation;
+		  }
+		}
+
+        Robot.driveBase.drive(leftMotorOutput, rightMotorOutput);
     }
 
     //takes the exponent of the positive value
