@@ -3,6 +3,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.RobotMap;
 
 
 public class ArcadeDrive extends Command {
@@ -19,63 +20,58 @@ public class ArcadeDrive extends Command {
 
     }
 
-    private boolean tempButtonBool = false;
-    private boolean forwardDone = false;
-    private boolean clapperDone = false;
-    private boolean backwardDone = false;
-
     @Override
     protected void execute() {
 
-        if (!tempButtonBool) {
-            double forwardSpeed = Robot.oi.controller.getY(Hand.kLeft);
-            double rotationalSpeed = Robot.oi.controller.getX(Hand.kLeft);
+        double ixSpeed = Robot.oi.controller.getRawAxis(RobotMap.LEFTYAXIS);
+        double izRotation = Robot.oi.controller.getRawAxis(RobotMap.LEFTXAXIS);
 
-            //inverting these values make it work more intuitively
-            double adjustedFSpeed = -adjustByExponent(forwardSpeed, 3);
-            double adjustedRSpeed = -adjustByExponent(rotationalSpeed, .5);
+        //inverting these values make it work more intuitively
+        double xSpeed = -adjustByExponent(ixSpeed, 3);
+        double zRotation = -adjustByExponent(izRotation, .5);
 
-            //this magnitude assumes the range of the controller is a perfect circle
-            //it actually extends slightly beyond that, but it should be fine?
-            double magnitude = Math.sqrt(forwardSpeed * forwardSpeed + rotationalSpeed * rotationalSpeed);
-            double multiplier = magnitude / Math.max(Math.abs(adjustedFSpeed), Math.abs(adjustedRSpeed));
+        //this magnitude assumes the range of the controller is a perfect circle
+        //it actually extends slightly beyond that, but it should be fine?
+        double magnitude = Math.sqrt(ixSpeed * ixSpeed + izRotation * izRotation);
+        double multiplier = magnitude / Math.max(Math.abs(xSpeed), Math.abs(zRotation));
         
-            adjustedFSpeed *= multiplier;
-            adjustedRSpeed *= multiplier;
-            System.out.println("Arcade Drive");
-            System.out.println("Raw Forward Speed: " + forwardSpeed);
-            System.out.println("Raw Rotational Speed: " + rotationalSpeed);
-            System.out.println("Magnitude: " + magnitude);
+        xSpeed *= multiplier;
+        zRotation *= multiplier;
 
-            Robot.driveBase.drive(adjustedFSpeed,//Y-Axis of left joystick
-                                  adjustedRSpeed);//X-Axis of left joystick
-        }
-        else {
-            if (!forwardDone) {
-                Robot.driveBase.drive(Robot.ultrasonicSystem.getDistance() / 20,
-                Robot.ultrasonicSystem.getDistance() / 20);
-                //whatever else PID stuff
-                if (Robot.ultrasonicSystem.getDistance() > 10.5) {
-                    forwardDone = true;
-                }
-            }
-            if (forwardDone && !clapperDone) {
-                //whatever code
-                if (clapperCheckerMethodThingy) {
-                    clapperDone = true;
-                }
-            }
-            if (forwardDone && clapperDone && !backwardDone) {
-                Robot.driveBase.drive(Robot.ultrasonicSystem.getDistance() / -20,
-                    Robot.ultrasonicSystem.getDistance() / -20 );
-                if (Robot.ultrasonicSystem.getDistance() < 30) {
-                    backwardDone = true;
-                }
-            }
-            if (forwardDone && clapperDone && !backwardDone) {
-                tempButtonBool = false;
-            }
-        }
+		// cap xSpeed and zRotation to (-1, 1)
+		xSpeed = Math.abs(xSpeed) < 1 ? xSpeed : Math.copySign(1, xSpeed);
+		zRotation = Math.abs(zRotation) < 1 ? zRotation : Math.copySign(1, zRotation);
+
+		double leftMotorOutput;
+		double rightMotorOutput;
+
+		double maxInput = Math.copySign(Math.max(Math.abs(xSpeed), Math.abs(zRotation)), xSpeed);
+
+		if (xSpeed >= 0.0) {
+		  // First quadrant, else second quadrant
+		  if (zRotation >= 0.0) {
+			leftMotorOutput = maxInput;
+			rightMotorOutput = xSpeed - zRotation;
+		  } else {
+			leftMotorOutput = xSpeed + zRotation;
+			rightMotorOutput = maxInput;
+		  }
+		} else {
+		  // Third quadrant, else fourth quadrant
+		  if (zRotation >= 0.0) {
+			leftMotorOutput = xSpeed + zRotation;
+			rightMotorOutput = maxInput;
+		  } else {
+			leftMotorOutput = maxInput;
+			rightMotorOutput = xSpeed - zRotation;
+		  }
+		}
+        
+        System.out.println("Arcade Drive");
+        System.out.println("Left Motor Output: " + leftMotorOutput);
+        System.out.println("Right Motor Output: " + rightMotorOutput);
+
+        Robot.driveBase.drive(leftMotorOutput, rightMotorOutput);      
     }
 
     //takes the exponent of the positive value
