@@ -11,6 +11,10 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 public class LineAdjust extends Command {
+  final double maxMotorOutput = 0.3;
+  
+  int thetaAllowance = 2;
+  
   //Using Integers because they can be set to null
   int previousTheta = 0;
   Integer theta = 0;
@@ -41,11 +45,27 @@ public class LineAdjust extends Command {
   protected void execute() {
     previousTheta = theta;
     theta = getTheta();
-    if(theta == null){
-        if(previousTheta < 0)
-        {
-          
-        }
+    
+    if(theta == null){//Does not see the line
+      if(previousTheta < 0)//Needs to turn right
+      {
+        robot.driveBase.drive(maxMotorOutput, -maxMotorOutput);
+      }
+      else
+      {
+       robot.driveBase.drive(-maxMotorOutput, maxMotorOutput); 
+      }
+    }
+    else //sees the line
+    {
+      if(theta < 0)//turning right
+      {
+        robot.driveBase.drive(maxMotorOutput, maxMotorOutput*(-theta)/90.0);
+      }
+      else//turning left
+      {
+        robot.driveBase.drive(maxMotorOutput*theta/90.0, maxMotorOutput);
+      }
     }
   }
 
