@@ -29,7 +29,7 @@ public class ArcadeDrive extends Command {
 
     @Override
     protected void execute() {
-        /*
+        
         if (Robot.oi.toggleOnB) {
             double forwardSpeed = Robot.oi.driveJoystick.getRawAxis(RobotMap.LEFTYAXIS);
             double rotationalSpeed = Robot.oi.driveJoystick.getRawAxis(RobotMap.LEFTXAXIS);
@@ -80,7 +80,7 @@ public class ArcadeDrive extends Command {
             if (forwardDone && clapperDone && backwardDone) {
                 tempButtonBool = false;
             }
-        }*/
+        }
 
         double ixSpeed = Robot.oi.controller.getY(Hand.kLeft);
         double izRotation = Robot.oi.controller.getX(Hand.kLeft);
