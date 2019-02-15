@@ -22,11 +22,6 @@ public class ArcadeDrive extends Command {
 
     }
 
-    //private boolean tempButtonBool = Robot.oi.toggleOn0;
-    private boolean forwardDone = false;
-    private boolean clapperDone = false;
-    private boolean backwardDone = false;
-
     @Override
     protected void execute() {
         
@@ -34,56 +29,8 @@ public class ArcadeDrive extends Command {
             double forwardSpeed = Robot.oi.driveJoystick.getRawAxis(RobotMap.LEFTYAXIS);
             double rotationalSpeed = Robot.oi.driveJoystick.getRawAxis(RobotMap.LEFTXAXIS);
 
-            //inverting these values make it work more intuitively
-            double adjustedFSpeed = -adjustByExponent(forwardSpeed, 3);
-            double adjustedRSpeed = -adjustByExponent(rotationalSpeed, 1);
-
-            //this magnitude assumes the range of the controller is a perfect circle
-            //it actually extends slightly beyond that, but it should be fine?
-            double magnitude = Math.sqrt(forwardSpeed * forwardSpeed + rotationalSpeed * rotationalSpeed);
-            double multiplier = magnitude / Math.max(Math.abs(adjustedFSpeed), Math.abs(adjustedRSpeed));
-        
-            adjustedFSpeed *= multiplier;
-            adjustedRSpeed *= multiplier;
-            //System.out.println("Arcade Drive");
-            //System.out.println("Raw Forward Speed: " + forwardSpeed);
-            //System.out.println("Raw Rotational Speed: " + rotationalSpeed);
-            //System.out.println("Magnitude: " + magnitude);
-
-            Robot.driveBase.drive(adjustedFSpeed,//Y-Axis of left joystick
-                                  adjustedRSpeed);//X-Axis of left joystick
-
-        }
-        else {
-            if (!forwardDone) {
-                Robot.driveBase.drive(Robot.ultrasonicSystem.getDistance() / RobotMap.kP,
-                Robot.ultrasonicSystem.getDistance() / RobotMap.kP);
-                //whatever else PID stuff
-                if (Robot.ultrasonicSystem.getDistance() < 10.5) {
-                    forwardDone = true;
-                }
-            }
-            if (forwardDone && !clapperDone) {
-                clapperDone = true;
-                //whatever code
-                //if (clapperCheckerMethodThingy) {
-                //    clapperDone = true;
-                //}
-            }
-            if (forwardDone && clapperDone && !backwardDone) {
-                Robot.driveBase.drive(Robot.ultrasonicSystem.getDistance() / (-1 * RobotMap.kP),
-                    Robot.ultrasonicSystem.getDistance() / (-1 * RobotMap.kP));
-                if (Robot.ultrasonicSystem.getDistance() > 30) {
-                    backwardDone = true;
-                }
-            }
-            if (forwardDone && clapperDone && backwardDone) {
-                tempButtonBool = false;
-            }
-        }
-
-        double ixSpeed = Robot.oi.controller.getY(Hand.kLeft);
-        double izRotation = Robot.oi.controller.getX(Hand.kLeft);
+        double ixSpeed = Robot.oi.controller.getRawAxis(RobotMap.LEFTYAXIS);
+        double izRotation = Robot.oi.controller.getRawAxis(RobotMap.LEFTXAXIS);
 
         //inverting these values make it work more intuitively
         double xSpeed = -adjustByExponent(ixSpeed, 3);
@@ -98,8 +45,8 @@ public class ArcadeDrive extends Command {
         zRotation *= multiplier;
 
 		// cap xSpeed and zRotation to (-1, 1)
-		xSpeed = Math.abs(xSpeed) < 1 ? xSpeed : Math.copySign(1, xSpeed));
-		zRotation = Math.abs(zRotation) < 1 ? zRotation : Math.copySign(1, zRotation));
+		xSpeed = Math.abs(xSpeed) < 1 ? xSpeed : Math.copySign(1, xSpeed);
+		zRotation = Math.abs(zRotation) < 1 ? zRotation : Math.copySign(1, zRotation);
 
 		double leftMotorOutput;
 		double rightMotorOutput;
@@ -125,8 +72,12 @@ public class ArcadeDrive extends Command {
 			rightMotorOutput = xSpeed - zRotation;
 		  }
 		}
+        
+        System.out.println("Arcade Drive");
+        System.out.println("Left Motor Output: " + leftMotorOutput);
+        System.out.println("Right Motor Output: " + rightMotorOutput);
 
-        Robot.driveBase.drive(leftMotorOutput, rightMotorOutput);
+        Robot.driveBase.drive(leftMotorOutput, rightMotorOutput);      
     }
 
     //takes the exponent of the positive value
