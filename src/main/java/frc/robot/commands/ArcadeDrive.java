@@ -8,6 +8,8 @@ import frc.robot.RobotMap;
 
 public class ArcadeDrive extends Command {
 
+    double leftSpeed, rightSpeed;
+
     public ArcadeDrive() {
         //requires is method that tells commands which subsystems will be using it
         //IT IS MANDATORY
@@ -27,9 +29,8 @@ public class ArcadeDrive extends Command {
 
     @Override
     protected void execute() {
-        
+        /*
         if (Robot.oi.toggleOnB) {
-            /*
             double forwardSpeed = Robot.oi.driveJoystick.getRawAxis(RobotMap.LEFTYAXIS);
             double rotationalSpeed = Robot.oi.driveJoystick.getRawAxis(RobotMap.LEFTXAXIS);
 
@@ -51,9 +52,9 @@ public class ArcadeDrive extends Command {
 
             Robot.driveBase.drive(adjustedFSpeed,//Y-Axis of left joystick
                                   adjustedRSpeed);//X-Axis of left joystick
-            */
+
         }
-        /*else {
+        else {
             if (!forwardDone) {
                 Robot.driveBase.drive(Robot.ultrasonicSystem.getDistance() / RobotMap.kP,
                 Robot.ultrasonicSystem.getDistance() / RobotMap.kP);
@@ -80,48 +81,53 @@ public class ArcadeDrive extends Command {
                 tempButtonBool = false;
             }
         }*/
-    }
 
-    /*public void arcadeDrive(double xSpeed, double zRotation) {
-        xSpeed = limit(xSpeed);
-        xSpeed = applyDeadband(xSpeed, m_deadband);
-    
-        zRotation = limit(zRotation);
-        zRotation = applyDeadband(zRotation, m_deadband);
-    
-        double leftMotorOutput;
-        double rightMotorOutput;
-    
-        double maxInput = Math.copySign(Math.max(Math.abs(xSpeed), Math.abs(zRotation)), xSpeed);
-    
-        if (xSpeed >= 0.0) {
-            // First quadrant, else second quadrant
-            if (zRotation >= 0.0) {
-                leftMotorOutput = maxInput;
-                rightMotorOutput = xSpeed - zRotation;
-            }
-            else {
-                leftMotorOutput = xSpeed + zRotation;
-                rightMotorOutput = maxInput;
-            }
-        }
-        else {
-            // Third quadrant, else fourth quadrant
-            if (zRotation >= 0.0) {
-                leftMotorOutput = xSpeed + zRotation;
-                rightMotorOutput = maxInput;
-            }
-            else {
-                leftMotorOutput = maxInput;
-                rightMotorOutput = xSpeed - zRotation;
-            }
-        }
-    
-        m_leftMotor.set(limit(leftMotorOutput) * m_maxOutput);
-        m_rightMotor.set(limit(rightMotorOutput) * m_maxOutput * m_rightSideInvertMultiplier);
-    
-        feed();
-    }*/
+        double ixSpeed = Robot.oi.controller.getY(Hand.kLeft);
+        double izRotation = Robot.oi.controller.getX(Hand.kLeft);
+
+        //inverting these values make it work more intuitively
+        double xSpeed = -adjustByExponent(ixSpeed, 3);
+        double zRotation = -adjustByExponent(izRotation, .5);
+
+        //this magnitude assumes the range of the controller is a perfect circle
+        //it actually extends slightly beyond that, but it should be fine?
+        double magnitude = Math.sqrt(ixSpeed * ixSpeed + izRotation * izRotation);
+        double multiplier = magnitude / Math.max(Math.abs(xSpeed), Math.abs(zRotation));
+        
+        xSpeed *= multiplier;
+        zRotation *= multiplier;
+
+		// cap xSpeed and zRotation to (-1, 1)
+		xSpeed = Math.abs(xSpeed) < 1 ? xSpeed : Math.copySign(1, xSpeed));
+		zRotation = Math.abs(zRotation) < 1 ? zRotation : Math.copySign(1, zRotation));
+
+		double leftMotorOutput;
+		double rightMotorOutput;
+
+		double maxInput = Math.copySign(Math.max(Math.abs(xSpeed), Math.abs(zRotation)), xSpeed);
+
+		if (xSpeed >= 0.0) {
+		  // First quadrant, else second quadrant
+		  if (zRotation >= 0.0) {
+			leftMotorOutput = maxInput;
+			rightMotorOutput = xSpeed - zRotation;
+		  } else {
+			leftMotorOutput = xSpeed + zRotation;
+			rightMotorOutput = maxInput;
+		  }
+		} else {
+		  // Third quadrant, else fourth quadrant
+		  if (zRotation >= 0.0) {
+			leftMotorOutput = xSpeed + zRotation;
+			rightMotorOutput = maxInput;
+		  } else {
+			leftMotorOutput = maxInput;
+			rightMotorOutput = xSpeed - zRotation;
+		  }
+		}
+
+        Robot.driveBase.drive(leftMotorOutput, rightMotorOutput);
+    }
 
     //takes the exponent of the positive value
     //and copies the original sign

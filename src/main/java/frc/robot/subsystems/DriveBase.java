@@ -62,9 +62,8 @@ public class DriveBase extends Subsystem {
     // here. Call these from Commands.
     public void drive(double leftSpeed, double rightSpeed) {
 
-        //differentialDrive.arcadeDrive(adjustedFSpeed, adjustedRSpeed, false);
-        //LeftChassisMotor.set(ControlMode.PercentOutput, adjustedFSpeed);
-        //RightChassisMotor.set(ControlMode.PercentOutput, adjustedRSpeed);
+        LeftChassisMotor.set(ControlMode.PercentOutput, leftSpeed);
+        RightChassisMotor.set(ControlMode.PercentOutput, rightSpeed);
 
         //System.out.println("Left Motor Speed: " + LeftChassisMotor.getSelectedSensorVelocity());
         //System.out.println("Right Motor Speed: " + RightChassisMotor.getSelectedSensorVelocity());
@@ -82,21 +81,7 @@ public class DriveBase extends Subsystem {
         LeftChassisMotor.set(ControlMode.PercentOutput, leftSpeed);
         RightChassisMotor.set(ControlMode.PercentOutput, -rightSpeed);
         */
-
-        //This implements the same algorithm in the DifferentialDrive class, which we can't use
-        LeftChassisMotor.set(ControlMode.PercentOutput, limit(leftSpeed));
-        RightChassisMotor.set(ControlMode.PercentOutput, limit(rightSpeed));
         
-    }
-
-    private double limit (double x) {
-        if (x > 1.0) {
-            return 1.0;
-        }
-        else if (x < -1.0) {
-            return -1.0;
-        }
-        return x;
     }
 
     //Whenever this subsystem is idle
