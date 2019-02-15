@@ -8,8 +8,6 @@ import frc.robot.RobotMap;
 
 public class ArcadeDrive extends Command {
 
-    double leftSpeed, rightSpeed;
-
     public ArcadeDrive() {
         //requires is method that tells commands which subsystems will be using it
         //IT IS MANDATORY
