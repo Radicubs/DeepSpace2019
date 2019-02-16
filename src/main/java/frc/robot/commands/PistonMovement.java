@@ -8,24 +8,17 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
 
-public class CompressorCommand extends Command {
-    
-    public CompressorCommand() {
-        requires(Robot.compressSystem);
+public class PistonMovement extends InstantCommand {
+    String function;
+
+    public PistonMovement() {
+        requires(Robot.compressSystem);  
     }
     @Override
     protected void initialize() {
-        
-    }
-
-    boolean stopOrNot = false;
-
-    // Called repeatedly when this Command is scheduled to run
-    // Compresses the compressor and fills up air tank
-    @Override
-    protected void execute() {
         if (Robot.oi.toggleOnX) {
             Robot.compressSystem.PistonMovement();
             Robot.oi.toggleOnX = false;
@@ -34,18 +27,18 @@ public class CompressorCommand extends Command {
             Robot.compressSystem.Compress();
             Robot.oi.toggleOnA = false;
         }
+        if(Robot.compressSystem.solenoidOne.get())
+        {
+            Robot.compressSystem.solenoidZero.set(true);
+            Robot.compressSystem.solenoidOne.set(false);
+        }
+        else
+        {
+            Robot.compressSystem.solenoidZero.set(false);
+            Robot.compressSystem.solenoidOne.set(true);
+        }
     }
 
-    // Make this return true when this Command no longer needs to run execute()
-    @Override
-    protected boolean isFinished() {
-        return stopOrNot;
-    }
-
-    // Called once after isFinished returns true
-    @Override
-    protected void end() {
-    }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run

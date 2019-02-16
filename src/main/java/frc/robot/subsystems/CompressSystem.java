@@ -14,15 +14,16 @@ import frc.robot.commands.CompressorCommand;
 
 public class CompressSystem extends Subsystem {
 
-    private Compressor pneumaticCompressor;
-    private Solenoid solenoidZero;
-    private Solenoid solenoidOne;
+    public Compressor pneumaticCompressor;
+    public Solenoid solenoidZero;
+    public Solenoid solenoidOne;
 
     public CompressSystem() {
         pneumaticCompressor = new Compressor(RobotMap.COMPRESSOR);
         solenoidZero = new Solenoid(RobotMap.SOLENOIDZERO);
         solenoidOne = new Solenoid(RobotMap.SOLENOIDONE);
         solenoidZero.set(true);
+        solenoidOne.set(false);
         Compress();
     }
 

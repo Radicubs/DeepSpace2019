@@ -5,20 +5,26 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.hatchpanel;
+package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.InstantCommand;
 
-public class HatchPanel extends CommandGroup {
+/**
+ * Add your docs here.
+ */
+public class Compress extends InstantCommand {
   /**
    * Add your docs here.
    */
-  public HatchPanel() {
-
-    //runs these commands in a sequence
-    addSequential(new LineAdjust());
-    //addSequential(new Clap()); --- uncomment this when we have figured out how to automate the clapper.
-    addSequential(new AutonomousBackwardsDrive());
-
+  public Compress() {
+    super();
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
   }
+
+  // Called once when the command executes
+  @Override
+  protected void initialize() {
+  }
+
 }

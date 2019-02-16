@@ -49,22 +49,22 @@ public class LineAdjust extends Command {
     if(theta == null){//Does not see the line
       if(previousTheta < 0)//Needs to turn right
       {
-        robot.driveBase.drive(maxMotorOutput, -maxMotorOutput);
+        Robot.driveBase.drive(maxMotorOutput, -maxMotorOutput);
       }
       else
       {
-       robot.driveBase.drive(-maxMotorOutput, maxMotorOutput); 
+        Robot.driveBase.drive(-maxMotorOutput, maxMotorOutput); 
       }
     }
     else //sees the line
     {
       if(theta < 0)//turning right
       {
-        robot.driveBase.drive(maxMotorOutput, maxMotorOutput*(-theta)/90.0);
+        Robot.driveBase.drive(maxMotorOutput, maxMotorOutput*(-theta)/90.0);
       }
       else//turning left
       {
-        robot.driveBase.drive(maxMotorOutput*theta/90.0, maxMotorOutput);
+        Robot.driveBase.drive(maxMotorOutput*theta/90.0, maxMotorOutput);
       }
     }
   }

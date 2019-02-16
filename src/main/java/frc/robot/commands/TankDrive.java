@@ -23,8 +23,8 @@ public class TankDrive extends Command {
     @Override
     protected void execute() {
 
-        double leftWheels = Robot.oi.driveJoystick.getRawAxis(1);
-        double rightWheels = Robot.oi.driveJoystick.getRawAxis(5);
+        double leftWheels = Robot.oi.controller.getRawAxis(1);
+        double rightWheels = Robot.oi.controller.getRawAxis(5);
 
         double scalingExponent = 0.5f;
         //inverting these values make it work more intuitively
