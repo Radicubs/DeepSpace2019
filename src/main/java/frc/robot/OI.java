@@ -9,6 +9,8 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.commands.Compress;
+import frc.robot.commands.PistonMovement;
 import frc.robot.commands.hatchpanel.HatchPanel;
 import edu.wpi.first.wpilibj.buttons.Button;
 
@@ -19,13 +21,13 @@ public class OI
     public static Button xButton;
     public static Button yButton;
 
-    public static boolean toggleA = false;
-    public static boolean toggleX = false;
 
     public OI() {
         controller = new Joystick(RobotMap.JOYSTICK);
         aButton = new JoystickButton(controller, RobotMap.ABUTTON);
+        aButton.whenPressed(new PistonMovement());
         xButton = new JoystickButton(controller, RobotMap.XBUTTON);
+        xButton.whenPressed(new Compress());
         yButton = new JoystickButton(controller, RobotMap.YBUTTON);
         yButton.whenPressed(new HatchPanel());
     }

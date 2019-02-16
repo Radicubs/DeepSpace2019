@@ -10,7 +10,6 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
-import frc.robot.commands.CompressorCommand;
 
 public class CompressSystem extends Subsystem {
 
@@ -50,6 +49,6 @@ public class CompressSystem extends Subsystem {
     }
 
     public void initDefaultCommand() {
-        setDefaultCommand(new CompressorCommand());
+        
     }
 }

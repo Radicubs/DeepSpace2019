@@ -7,7 +7,6 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
 
@@ -19,24 +18,7 @@ public class PistonMovement extends InstantCommand {
     }
     @Override
     protected void initialize() {
-        if (Robot.oi.toggleOnX) {
-            Robot.compressSystem.PistonMovement();
-            Robot.oi.toggleOnX = false;
-        }
-        if (Robot.oi.toggleOnA) {
-            Robot.compressSystem.Compress();
-            Robot.oi.toggleOnA = false;
-        }
-        if(Robot.compressSystem.solenoidOne.get())
-        {
-            Robot.compressSystem.solenoidZero.set(true);
-            Robot.compressSystem.solenoidOne.set(false);
-        }
-        else
-        {
-            Robot.compressSystem.solenoidZero.set(false);
-            Robot.compressSystem.solenoidOne.set(true);
-        }
+        Robot.compressSystem.PistonMovement();
     }
 
 
