@@ -36,34 +36,37 @@ public class ArcadeDrive extends Command {
         xSpeed *= multiplier;
         zRotation *= multiplier;
 
-	// cap xSpeed and zRotation to (-1, 1)
-	xSpeed = Math.abs(xSpeed) < 1 ? xSpeed : Math.copySign(1, xSpeed);
-	zRotation = Math.abs(zRotation) < 1 ? zRotation : Math.copySign(1, zRotation);
+	      // cap xSpeed and zRotation to (-1, 1)
+	      xSpeed = Math.abs(xSpeed) < 1 ? xSpeed : Math.copySign(1, xSpeed);
+	      zRotation = Math.abs(zRotation) < 1 ? zRotation : Math.copySign(1, zRotation);
 
-	double leftMotorOutput;
-	double rightMotorOutput;
+	      double leftMotorOutput;
+	      double rightMotorOutput;
 
-	double maxInput = Math.copySign(Math.max(Math.abs(xSpeed), Math.abs(zRotation)), xSpeed);
+	      double maxInput = Math.copySign(Math.max(Math.abs(xSpeed), Math.abs(zRotation)), xSpeed);
 
-	if (xSpeed >= 0.0) {
-	  // First quadrant, else second quadrant
-	  if (zRotation >= 0.0) {
-		leftMotorOutput = maxInput;
-		rightMotorOutput = xSpeed - zRotation;
-	  } else {
-		leftMotorOutput = xSpeed + zRotation;
-		rightMotorOutput = maxInput;
-	  }
-	} else {
-	  // Third quadrant, else fourth quadrant
-	  if (zRotation >= 0.0) {
-		leftMotorOutput = xSpeed + zRotation;
-		rightMotorOutput = maxInput;
-	  } else {
-		leftMotorOutput = maxInput;
-		rightMotorOutput = xSpeed - zRotation;
-	  }
-	}
+	      if (xSpeed >= 0.0) {
+	          // First quadrant, else second quadrant
+	          if (zRotation >= 0.0) {
+		            leftMotorOutput = maxInput;
+		            rightMotorOutput = xSpeed - zRotation;
+            }
+            else {
+		            leftMotorOutput = xSpeed + zRotation;
+		            rightMotorOutput = maxInput;
+	          }
+        }
+        else {
+	          // Third quadrant, else fourth quadrant
+	          if (zRotation >= 0.0) {
+		            leftMotorOutput = xSpeed + zRotation;
+		            rightMotorOutput = maxInput;
+            }
+            else {
+		            leftMotorOutput = maxInput;
+		            rightMotorOutput = xSpeed - zRotation;
+	          }
+	      }
         
         System.out.println("Arcade Drive");
         System.out.println("Left Motor Output: " + leftMotorOutput);

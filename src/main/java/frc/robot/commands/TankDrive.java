@@ -31,10 +31,10 @@ public class TankDrive extends Command {
         double adjustedLSpeed = -adjustByExponent(leftWheels, scalingExponent);
         double adjustedRSpeed = -adjustByExponent(rightWheels, scalingExponent);
         
-        System.out.println("Tank Drive");
-        System.out.println("Raw Left Speed: " + leftWheels);
-        System.out.println("Raw Right Speed: " + rightWheels);
-        System.out.println("Scaling Exponent: " + scalingExponent);
+        //System.out.println("Tank Drive");
+        //System.out.println("Raw Left Speed: " + leftWheels);
+        //System.out.println("Raw Right Speed: " + rightWheels);
+        //System.out.println("Scaling Exponent: " + scalingExponent);
 
         Robot.driveBase.drive(leftWheels,//Y-Axis of left joystick
                               -1 * leftWheels);//Y-Axis of right joystick

@@ -10,25 +10,23 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.Compress;
-import frc.robot.commands.PistonMovement;
-import frc.robot.commands.hatchpanel.HatchPanel;
+import frc.robot.commands.GearShift;
+import frc.robot.commands.ASevenInch;
+import frc.robot.commands.Clapper;
+import frc.robot.commands.hatchpanel.*;
 import edu.wpi.first.wpilibj.buttons.Button;
 
 public class OI
 {
-    public static Joystick controller;
-    public static Button aButton;
-    public static Button xButton;
-    public static Button yButton;
-
+    public static Joystick controller = new Joystick(RobotMap.JOYSTICK);
+    public static Button aButton = new JoystickButton(controller, RobotMap.ABUTTON);
+    public static Button xButton = new JoystickButton(controller, RobotMap.XBUTTON);
+    public static Button yButton = new JoystickButton(controller, RobotMap.YBUTTON);
+    public static Button bButton = new JoystickButton(controller, RobotMap.BBUTTON);
 
     public OI() {
-        controller = new Joystick(RobotMap.JOYSTICK);
-        aButton = new JoystickButton(controller, RobotMap.ABUTTON);
-        aButton.whenPressed(new PistonMovement());
-        xButton = new JoystickButton(controller, RobotMap.XBUTTON);
-        xButton.whenPressed(new Compress());
-        yButton = new JoystickButton(controller, RobotMap.YBUTTON);
-        yButton.whenPressed(new HatchPanel());
+        aButton.whenPressed(new ASevenInch());
+        bButton.whenPressed(new GearShift());
+        xButton.whenPressed(new Clapper());
     }
 }
