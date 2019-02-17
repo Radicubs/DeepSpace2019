@@ -24,11 +24,11 @@ public class Robot extends TimedRobot
     @Override
     public void robotInit() 
     {
-        oi = new OI();
         driveBase = new DriveBase();
         compressSystem = new CompressSystem();
         //CameraServer.getInstance().startAutomaticCapture();
         ultrasonicSystem = new UltrasonicSystem();
+        oi = new OI();          //make sure this is initialized after subsystem initialization, Sujay
     }
 
 

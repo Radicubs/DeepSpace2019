@@ -10,17 +10,16 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
 
-public class PistonMovement extends InstantCommand {
+public class GearShift extends InstantCommand {
     String function;
 
-    public PistonMovement() {
+    public GearShift() {
         requires(Robot.compressSystem);  
     }
     @Override
     protected void initialize() {
-        Robot.compressSystem.PistonMovement();
+        Robot.compressSystem.HighGearMovement();
     }
-
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run

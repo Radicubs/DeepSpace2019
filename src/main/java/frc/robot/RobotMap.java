@@ -30,18 +30,16 @@ public class RobotMap
     public static final int RIGHTYAXIS = 5;
 
     //BUTTONS
-    public static final int XBUTTON = 1;
-    public static final int ABUTTON = 2;
-    public static final int BBUTTON = 3;
+    public static final int ABUTTON = 1;
+    public static final int BBUTTON = 2;
+    public static final int XBUTTON = 3;
     public static final int YBUTTON = 4;
     public static final int LBBUTTON = 5;
     public static final int RBBUTTON = 6;
-    public static final int LTBUTTON = 7;
-    public static final int RTBUTTON = 8;
-    public static final int GOBACKBUTTON = 9;
-    public static final int STARTBUTTON = 10;
-    public static final int CLICKLEFTJOYSTICK = 11;
-    public static final int CLICKRIGHTJOYSTICK = 12;
+    public static final int GOBACKBUTTON = 7;
+    public static final int STARTBUTTON = 8;
+    public static final int CLICKLEFTJOYSTICK = 9;
+    public static final int CLICKRIGHTJOYSTICK = 10;
 
     //COMPRESSOR
     public static final int COMPRESSOR = 0;
@@ -49,6 +47,8 @@ public class RobotMap
     //SOLENOIDS
     public static final int SOLENOIDZERO = 0;
     public static final int SOLENOIDONE = 1;
+    public static final int SOLENOIDGEAR = 2;
+    public static final int SOLENOIDCLAPPER = 3;
 
     //ULTRASONIC SENSOR PORTS
     public static final int ULTRASONIC = 0;

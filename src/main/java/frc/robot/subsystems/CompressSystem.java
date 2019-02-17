@@ -16,13 +16,17 @@ public class CompressSystem extends Subsystem {
     public Compressor pneumaticCompressor;
     public Solenoid solenoidZero;
     public Solenoid solenoidOne;
+    public Solenoid solenoidGear;
+    public Solenoid solenoidClapper;
 
     public CompressSystem() {
         pneumaticCompressor = new Compressor(RobotMap.COMPRESSOR);
         solenoidZero = new Solenoid(RobotMap.SOLENOIDZERO);
         solenoidOne = new Solenoid(RobotMap.SOLENOIDONE);
-        solenoidZero.set(true);
-        solenoidOne.set(false);
+        solenoidGear = new Solenoid(RobotMap.SOLENOIDGEAR);
+        solenoidClapper = new Solenoid(RobotMap.SOLENOIDCLAPPER);
+        solenoidZero.set(false);
+        solenoidOne.set(true);
         Compress();
     }
 
@@ -36,16 +40,27 @@ public class CompressSystem extends Subsystem {
     private boolean pistonBool = false;
 
     //Opens and closes the pneumatic piston
-    public void PistonMovement() {
+    public void SevenInches() {
+        System.out.println("Seven inches activated");
         pistonBool = !pistonBool;
         if (pistonBool) {
+            System.out.println("If statement");
             solenoidZero.set(true);
             solenoidOne.set(false);
         }
         else {
+            System.out.println("Else statement");
             solenoidZero.set(false);
             solenoidOne.set(true);
         }
+    }
+
+    public void HighGearMovement() {
+        solenoidGear.set(!solenoidGear.get());
+    }
+
+    public void ClapperMovement() {
+        solenoidClapper.set(!solenoidClapper.get());
     }
 
     public void initDefaultCommand() {
