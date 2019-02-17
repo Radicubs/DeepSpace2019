@@ -25,7 +25,6 @@ public class OI
     public static Button bButton = new JoystickButton(controller, RobotMap.BBUTTON);
 
     public OI() {
-        System.out.println("aoisdaosdasd");
         aButton.whenPressed(new ASevenInch());
         bButton.whenPressed(new GearShift());
         xButton.whenPressed(new Clapper());
