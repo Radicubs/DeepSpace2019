@@ -28,7 +28,6 @@ public class OI
         System.out.println("aoisdaosdasd");
         aButton.whenPressed(new ASevenInch());
         bButton.whenPressed(new GearShift());
-        xButton.whenPressed(new Compress());
-        yButton.whenPressed(new Clapper());
+        xButton.whenPressed(new Clapper());
     }
 }
