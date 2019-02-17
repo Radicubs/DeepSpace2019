@@ -27,7 +27,6 @@ public class CompressSystem extends Subsystem {
         solenoidClapper = new Solenoid(RobotMap.SOLENOIDCLAPPER);
         solenoidZero.set(false);
         solenoidOne.set(true);
-        Compress();
     }
 
     private boolean compressorBool = false;
@@ -35,6 +34,10 @@ public class CompressSystem extends Subsystem {
     public void Compress() {
         compressorBool = !compressorBool;
         pneumaticCompressor.setClosedLoopControl(compressorBool);
+    }
+
+    public void CompressOn() {
+        pneumaticCompressor.setClosedLoopControl(true);
     }
 
     private boolean pistonBool = false;
