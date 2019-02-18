@@ -9,11 +9,9 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.robot.commands.Compress;
 import frc.robot.commands.GearShift;
 import frc.robot.commands.ASevenInch;
 import frc.robot.commands.Clapper;
-import frc.robot.commands.hatchpanel.*;
 import edu.wpi.first.wpilibj.buttons.Button;
 
 public class OI

@@ -20,6 +20,7 @@ public class Robot extends TimedRobot
     public static DriveBase driveBase;
     public static CompressSystem compressSystem;
     public static UltrasonicSystem ultrasonicSystem;
+    //public static PixySystem pixySystem;
 
     @Override
     public void robotInit() 
@@ -28,6 +29,7 @@ public class Robot extends TimedRobot
         compressSystem = new CompressSystem();
         //CameraServer.getInstance().startAutomaticCapture();
         ultrasonicSystem = new UltrasonicSystem();
+        //pixySystem = new PixySystem();
         oi = new OI();          //make sure this is initialized after subsystem initialization, Sujay
     }
 

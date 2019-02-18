@@ -1,34 +1,30 @@
-//
-// begin license header
-//
-// This file is part of Pixy CMUcam5 or "Pixy" for short
-//
-// All Pixy source code is provided under the terms of the
-// GNU General Public License v2 (http://www.gnu.org/licenses/gpl-2.0.html).
-// Those wishing to use Pixy source code, software and/or
-// technologies under different licensing terms should contact us at
-// cmucam@cs.cmu.edu. Such licensing terms are available for
-// all portions of the Pixy codebase presented here.
-// ananth was here
-// end license header
-//
-
+#include <Wire.h>
 #include <Pixy2.h>
+#include <stdio.h>
+#include <math.h>
 
 Pixy2 pixy;
 
 void setup()
 {
   Serial.begin(9600);
+  Wire.begin(4);
 
 //initialize the pixy object
   pixy.init();
-  pixy.changeProg("video");
+  pixy.changeProg("line_tracking");
+
+  //Sets ideal conditions for Pixycam
+  pixy.setLamp(1,1);
+  pixy.setCameraBrightness(40);
 }
+
+char xAsString[8] = "";
+
 void loop()
 {
-
-pixy.line.getAllFeatures();
+  Wire.onRequest(requestEvent);
+  pixy.line.getAllFeatures();
 
 //Gets Coordiantes of Vectors 
   int x0 = pixy.line.vectors[0].m_x0;
@@ -36,21 +32,16 @@ pixy.line.getAllFeatures();
   int y0 = pixy.line.vectors[0].m_y0;
   int y1 = pixy.line.vectors[0].m_y1;
 
-//Sets ideal conditions for Pixycam
-  pixy.setLamp(1,1);
-  pixy.setCameraBrightness(40);
-
-//Checks line width of vector and if its above 40 then it will calculate the angle
-  if (abs(x1-x0) > 40)
-  {
   double angle = atan((y1-y0)/(x1-x0));
-
-//radians to degrees
-  Serial.println(angle*57.2958);
-  }
+  int degreeAngle = angle*57.2958;
   
-  delay(1000);
+  memset(xAsString, 0, strlen(xAsString));
+  //xAsString[0] = '\0';
+  sprintf(xAsString, "%d", degreeAngle);
+  Serial.println(xAsString);
+  delay(100);
 }
 
-
-   
+void requestEvent() {
+  Wire.write(xAsString);
+}

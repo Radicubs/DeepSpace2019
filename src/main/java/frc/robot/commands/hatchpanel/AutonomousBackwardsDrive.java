@@ -9,6 +9,7 @@ package frc.robot.commands.hatchpanel;
 
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
+import frc.robot.RobotMap;
 
 /**
  * Add your docs here.
@@ -29,8 +30,8 @@ public class AutonomousBackwardsDrive extends InstantCommand {
   protected void initialize() {
     //Pseudo PID; Takes distance from getDistance() and divides by constant of 20. So as we get closer, we go slower
     while (Robot.ultrasonicSystem.getDistance() < 30) {
-      Robot.driveBase.drive(Robot.ultrasonicSystem.getDistance()/-20,
-        Robot.ultrasonicSystem.getDistance()/-20 );
+      Robot.driveBase.drive(Robot.ultrasonicSystem.getDistance() / (-1 * RobotMap.kD),
+        Robot.ultrasonicSystem.getDistance()/ (-1 * RobotMap.kD));
     }
     
     }
