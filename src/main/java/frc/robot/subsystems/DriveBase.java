@@ -88,6 +88,6 @@ public class DriveBase extends Subsystem {
     //It will run the command ArcadeDrive
     //Therefore driving will always be enabled
     public void initDefaultCommand() {
-        setDefaultCommand(new TankDrive());
+        setDefaultCommand(new ArcadeDrive());
     }
 }
