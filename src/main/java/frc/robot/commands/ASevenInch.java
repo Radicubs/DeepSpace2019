@@ -17,7 +17,6 @@ public class ASevenInch extends InstantCommand {
     }
     @Override
     protected void initialize() {
-        System.out.println("Initialize command");
         Robot.compressSystem.SevenInches();
     }
 

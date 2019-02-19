@@ -44,15 +44,12 @@ public class CompressSystem extends Subsystem {
 
     //Opens and closes the pneumatic piston
     public void SevenInches() {
-        System.out.println("Seven inches activated");
         pistonBool = !pistonBool;
         if (pistonBool) {
-            System.out.println("If statement");
             solenoidZero.set(true);
             solenoidOne.set(false);
         }
         else {
-            System.out.println("Else statement");
             solenoidZero.set(false);
             solenoidOne.set(true);
         }

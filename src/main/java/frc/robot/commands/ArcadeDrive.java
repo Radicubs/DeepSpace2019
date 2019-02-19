@@ -54,7 +54,6 @@ public class ArcadeDrive extends Command {
               if(zRotation <= 0.1 && zRotation >= 0.0 || zRotation <= 0.0 && zRotation >= -0.1){
                 leftMotorOutput = maxInput;
                 rightMotorOutput = -maxInput;
-                System.out.println("YOSHI");
               }
               else{
                 leftMotorOutput = -maxInput;
