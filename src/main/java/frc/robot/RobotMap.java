@@ -16,9 +16,6 @@ public class RobotMap
     public static final int RIGHT_TALON = 7;
     public static final int RIGHT_FOLLOWER_ONE = 5;
     public static final int RIGHT_FOLLOWER_TWO = 3;
-    
-    //CONTROLLER
-    //public static final int CONTROLLER = 0;
 
     //JOYSTICKS
     public static final int JOYSTICK = 0;
@@ -57,12 +54,4 @@ public class RobotMap
     public static final double kP = 20.0;
     public static final double kI = 0.0;
     public static final double kD = 0.0;
-
-
-    //BUTTONS ARE MESSED UP -_-
-    //Robot.oi.controller.getAbutton() ==> actually controllers X button
-    //Robot.oi.controller.getBbutton() ==> actually controllers A button
-    //Robot.oi.controller.getXbutton() ==> actually controllers B button
-    //Robot.oi.controller.getYbutton() ==> actually controllers Y button
-
 }

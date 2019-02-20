@@ -2,14 +2,17 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.commands.AttackWall;
 
 public class UltrasonicSystem extends Subsystem {
 
     public static AnalogInput mb1013 = new AnalogInput(0);
-    static double VOLTS_TO_DIST = 1.0;
+    public static double VOLTS_TO_DIST = 38.71;   //38.71
 
 
-    public void initDefaultCommand() {}
+    public void initDefaultCommand() {
+       //setDefaultCommand(new AttackWall());
+    }
 
 
     public double getVoltage() {

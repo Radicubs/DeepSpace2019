@@ -25,8 +25,8 @@ public class ArcadeDrive extends Command {
         double ixSpeed = -1 * Robot.oi.controller.getRawAxis(RobotMap.LEFTYAXIS);
         double izRotation = Robot.oi.controller.getRawAxis(RobotMap.RIGHTXAXIS);
 
-        System.out.println("Y axis: " + ixSpeed);
-        System.out.println("X axis: " + izRotation);
+        //System.out.println("Y axis: " + ixSpeed);
+        //System.out.println("X axis: " + izRotation);
 
         //inverting these values make it work more intuitively
         double xSpeed = -adjustByExponent(ixSpeed, 3);
@@ -66,7 +66,7 @@ public class ArcadeDrive extends Command {
                     //quadrant three - anti-clockwise
 
 		            leftMotorOutput = maxInput;
-                    rightMotorOutput = zRotation - xSpeed;
+                    rightMotorOutput = (zRotation - xSpeed);
 
             }
             else {
@@ -80,12 +80,12 @@ public class ArcadeDrive extends Command {
                 //second  quadrant - anti-clockwise
 
                 leftMotorOutput = -maxInput;
-                rightMotorOutput = zRotation - xSpeed;
+                rightMotorOutput = (zRotation - xSpeed);
             }
             else {
                 //first quadrant - clockwise
 
-                leftMotorOutput = zRotation - xSpeed;
+                leftMotorOutput = (zRotation - xSpeed);
                 rightMotorOutput = maxInput;
 
 	        }
