@@ -21,8 +21,8 @@ public class LineAdjust extends Command {
 
   public Integer getTheta()
   {
-    return 0;
-    //return Integer.parseInt(Robot.pixySystem.read());
+    //return 0;
+    return Integer.parseInt(Robot.pixySystem.read());
   }
 
   public LineAdjust() {

@@ -10,6 +10,8 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.GearShift;
+import frc.robot.commands.Left;
+import frc.robot.commands.Right;
 import frc.robot.commands.ASevenInch;
 import frc.robot.commands.AttackWall;
 import frc.robot.commands.Clapper;
@@ -23,10 +25,17 @@ public class OI
     //public static Button yButton = new JoystickButton(controller, RobotMap.YBUTTON);
     public static Button bButton = new JoystickButton(controller, RobotMap.BBUTTON);
 
+    public static Button leftButton = new JoystickButton(controller, RobotMap.LBBUTTON);
+    public static Button rightButton = new JoystickButton(controller, RobotMap.RBBUTTON);
+
+
     public OI() {
         aButton.whenPressed(new ASevenInch());
         bButton.whenPressed(new GearShift());
         xButton.whenPressed(new Clapper());
         //yButton.whenPressed(new AttackWall());
+
+        leftButton.whenPressed(new Left());
+        rightButton.whenPressed(new Right());
     }
 }

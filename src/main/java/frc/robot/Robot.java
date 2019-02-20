@@ -7,7 +7,6 @@ package frc.robot;
 /*----------------------------------------------------------------------------*/
 
 
-import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.robot.subsystems.*;
@@ -21,7 +20,7 @@ public class Robot extends TimedRobot
     public static DriveBase driveBase;
     public static CompressSystem compressSystem;
     public static UltrasonicSystem ultrasonicSystem;
-    //public static PixySystem pixySystem;
+    public static PixySystem pixySystem;
 
     @Override
     public void robotInit() 
@@ -30,7 +29,7 @@ public class Robot extends TimedRobot
         compressSystem = new CompressSystem();
         //CameraServer.getInstance().startAutomaticCapture();
         ultrasonicSystem = new UltrasonicSystem();
-        //pixySystem = new PixySystem();
+        pixySystem = new PixySystem();
         oi = new OI();          //make sure this is initialized after subsystem initialization, Sujay
     }
 
