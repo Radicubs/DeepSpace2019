@@ -33,9 +33,6 @@ public class OI
         aButton.whenPressed(new ASevenInch());
         bButton.whenPressed(new GearShift());
         xButton.whenPressed(new Clapper());
-        //yButton.whenPressed(new AttackWall());
-
-        leftButton.whenPressed(new Left());
-        rightButton.whenPressed(new Right());
+        //yButton.whenPressed(new AttackWall())
     }
 }
