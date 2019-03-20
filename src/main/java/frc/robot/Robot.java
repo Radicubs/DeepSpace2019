@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.robot.subsystems.*;
 import frc.robot.OI;
+import edu.wpi.first.cameraserver.CameraServer;
 
 
 // If you rename or move this class, update the build.properties file in the project root
@@ -27,7 +28,7 @@ public class Robot extends TimedRobot
     {
         driveBase = new DriveBase();
         compressSystem = new CompressSystem();
-        //CameraServer.getInstance().startAutomaticCapture();
+        CameraServer.getInstance().startAutomaticCapture();
         ultrasonicSystem = new UltrasonicSystem();
         pixySystem = new PixySystem();
         oi = new OI();          //make sure this is initialized after subsystem initialization, Sujay

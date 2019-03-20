@@ -21,61 +21,84 @@ public class ArcadeDrive extends Command {
 
     @Override
     protected void execute() {
-        double ixSpeed = Robot.oi.controller.getRawAxis(RobotMap.LEFTYAXIS);
-        double izRotation = Robot.oi.controller.getRawAxis(RobotMap.LEFTXAXIS);
+
+        double ixSpeed = -1 * Robot.oi.controller.getRawAxis(RobotMap.LEFTYAXIS);
+        double izRotation = Robot.oi.controller.getRawAxis(RobotMap.RIGHTXAXIS);
+
+        System.out.println("Y axis: " + ixSpeed);
+        System.out.println("X axis: " + izRotation);
 
         //inverting these values make it work more intuitively
         double xSpeed = -adjustByExponent(ixSpeed, 3);
-        double zRotation = -adjustByExponent(izRotation, .5);
+        double zRotation = -adjustByExponent(izRotation, 0.08);
 
         //this magnitude assumes the range of the controller is a perfect circle
         //it actually extends slightly beyond that, but it should be fine?
-        double magnitude = Math.sqrt((ixSpeed * ixSpeed) + (izRotation * izRotation));
+        double magnitude = Math.sqrt(ixSpeed * ixSpeed + izRotation * izRotation);
         double multiplier = magnitude / Math.max(Math.abs(xSpeed), Math.abs(zRotation));
         
         xSpeed *= multiplier;
         zRotation *= multiplier;
 
 	      // cap xSpeed and zRotation to (-1, 1)
-	      xSpeed = Math.abs(xSpeed) < 1 ? xSpeed : Math.copySign(1, xSpeed);
-	      zRotation = Math.abs(zRotation) < 1 ? zRotation : Math.copySign(1, zRotation);
+	    //   xSpeed = Math.abs(xSpeed) < 1 ? xSpeed : Math.copySign(1, xSpeed);
+	    //   zRotation = Math.abs(zRotation) < 1 ? zRotation : Math.copySign(1, zRotation);
 
-	      double leftMotorOutput;
-	      double rightMotorOutput;
+	      double leftMotorOutput = 0;
+	      double rightMotorOutput = 0;
 
-	      double maxInput = Math.copySign(Math.max(Math.abs(xSpeed), Math.abs(zRotation)), xSpeed);
+	      double maxInput = Math.copySign(Math.max(Math.abs(xSpeed), Math.abs(zRotation)), xSpeed) * .50;
+          if(zRotation == 0.0)
+          {
+              //System.out.println("Test " + ixSpeed);
+              if(zRotation <= 0.1 && zRotation >= 0.0 || zRotation <= 0.0 && zRotation >= -0.1){
+                leftMotorOutput = maxInput;
+                rightMotorOutput = -maxInput;
+                System.out.println("YOSHI");
+              }
+              else{
+                leftMotorOutput = -maxInput;
+                rightMotorOutput = maxInput;
+              }
+          }
+	      else if (xSpeed >= 0.0) {
+	          // First quadrant, else second quadrant
+	          if (zRotation >= 0.0) {
+                    //quadrant three - anti-clockwise
 
-	      if (xSpeed >= 0.0) {
-	          // Second quadrant, else first quadrant
-	          if (zRotation >= 0.0) { 
-                    leftMotorOutput = xSpeed + zRotation;
-		            rightMotorOutput = maxInput;
+		            leftMotorOutput = maxInput;
+                    rightMotorOutput = zRotation - xSpeed;
+
             }
             else {
-                leftMotorOutput = maxInput;
-                rightMotorOutput = xSpeed - zRotation;
+                    //quadrant four - clockwise
+		            leftMotorOutput = zRotation - xSpeed;
+                    rightMotorOutput = -maxInput;
 	          }
         }
         else {
-	          // Third quadrant, else fourth quadrant
 	          if (zRotation >= 0.0) {
-		            leftMotorOutput = xSpeed + zRotation;
-		            rightMotorOutput = maxInput;
+                //second  quadrant - anti-clockwise
+
+                leftMotorOutput = -maxInput;
+                rightMotorOutput = zRotation - xSpeed;
             }
             else {
-		            leftMotorOutput = maxInput;
-		            rightMotorOutput = xSpeed - zRotation;
-	          }
-	      }
+                //first quadrant - clockwise
+
+                leftMotorOutput = zRotation - xSpeed;
+                rightMotorOutput = maxInput;
+
+	        }
+	    }
         
-        System.out.println("Arcade Drive");
+        //System.out.println("Arcade Drive");
+        //System.out.println("Left Motor Output: " + leftMotorOutput);
+        //System.out.println("Right Motor Output: " + rightMotorOutput);
 
-        System.out.println("Left Motor Output: " + leftMotorOutput);
-        System.out.println("Right Motor Output: " + rightMotorOutput);
+        Robot.driveBase.drive(leftMotorOutput, rightMotorOutput);
 
-        Robot.driveBase.drive(leftMotorOutput, rightMotorOutput);      
-    }
-
+}
     //takes the exponent of the positive value
     //and copies the original sign
     private static double adjustByExponent(double value, double exp) {

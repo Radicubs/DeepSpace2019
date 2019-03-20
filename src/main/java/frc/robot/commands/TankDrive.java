@@ -36,8 +36,8 @@ public class TankDrive extends Command {
         //System.out.println("Raw Right Speed: " + rightWheels);
         //System.out.println("Scaling Exponent: " + scalingExponent);
 
-        Robot.driveBase.drive(leftWheels,//Y-Axis of left joystick
-                              -1 * leftWheels);//Y-Axis of right joystick
+        //Robot.driveBase.drive(leftWheels,//Y-Axis of left joystick
+        //                      -1 * leftWheels);//Y-Axis of right joystick
     }
 
     //takes the exponent of the positive value
