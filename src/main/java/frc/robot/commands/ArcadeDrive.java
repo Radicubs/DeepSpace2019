@@ -66,14 +66,14 @@ public class ArcadeDrive extends Command {
 	          if (zRotation >= 0.0) {
                     //quadrant three - anti-clockwise
 
-		            leftMotorOutput = maxInput;
-                    rightMotorOutput = zRotation - xSpeed;
+		            leftMotorOutput = -maxInput;
+                    rightMotorOutput = -maxInput;
 
             }
             else {
                     //quadrant four - clockwise
-		            leftMotorOutput = zRotation - xSpeed;
-                    rightMotorOutput = -maxInput;
+		            leftMotorOutput = maxInput;
+                    rightMotorOutput = maxInput;
 	          }
         }
         else {
@@ -81,12 +81,12 @@ public class ArcadeDrive extends Command {
                 //second  quadrant - anti-clockwise
 
                 leftMotorOutput = -maxInput;
-                rightMotorOutput = zRotation - xSpeed;
+                rightMotorOutput = -maxInput;
             }
             else {
                 //first quadrant - clockwise
 
-                leftMotorOutput = zRotation - xSpeed;
+                leftMotorOutput = maxInput;
                 rightMotorOutput = maxInput;
 
 	        }
