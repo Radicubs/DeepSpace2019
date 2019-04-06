@@ -23,10 +23,10 @@ public class ArcadeDrive extends Command {
     protected void execute() {
 
         double ixSpeed = -1 * Robot.oi.controller.getRawAxis(RobotMap.LEFTYAXIS);
-        double izRotation = Robot.oi.controller.getRawAxis(RobotMap.RIGHTXAXIS);
+        double izRotation = Robot.oi.yButton.get() ? 0 : Robot.oi.controller.getRawAxis(RobotMap.RIGHTXAXIS);
 
-        System.out.println("Y axis: " + ixSpeed);
-        System.out.println("X axis: " + izRotation);
+        //System.out.println("Y axis: " + ixSpeed);
+        //System.out.println("X axis: " + izRotation);
 
         //inverting these values make it work more intuitively
         double xSpeed = -adjustByExponent(ixSpeed, 3);
@@ -48,13 +48,13 @@ public class ArcadeDrive extends Command {
 	      double rightMotorOutput = 0;
 
 	      double maxInput = Math.copySign(Math.max(Math.abs(xSpeed), Math.abs(zRotation)), xSpeed) * .50;
-          if(zRotation == 0.0)
+          if(Math.abs(zRotation) < 0.05) // changed from zRotation == 0
           {
               //System.out.println("Test " + ixSpeed);
               if(zRotation <= 0.1 && zRotation >= 0.0 || zRotation <= 0.0 && zRotation >= -0.1){
                 leftMotorOutput = maxInput;
                 rightMotorOutput = -maxInput;
-                System.out.println("YOSHI");
+                //System.out.println("YOSHI");
               }
               else{
                 leftMotorOutput = -maxInput;

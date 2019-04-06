@@ -5,27 +5,13 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.hatchpanel;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class LineAdjust extends Command {
-  final double maxMotorOutput = 0.3;
-  
-  int thetaAllowance = 2;
-  
-  //Using Integers because they can be set to null
-  int previousTheta = 0;
-  Integer theta = 0;
-
-  public Integer getTheta()
-  {
-    //return 0;
-    return Integer.parseInt(Robot.pixySystem.read());
-  }
-
-  public LineAdjust() {
+public class Forward extends Command {
+  public Forward() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires(Robot.driveBase);
@@ -34,46 +20,18 @@ public class LineAdjust extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    theta = getTheta();
-    if(theta == null)
-    {
-      cancel();
-    }    
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    previousTheta = theta;
-    theta = getTheta();
-    
-    if(theta == null){//Does not see the line
-      if(previousTheta < 0)//Needs to turn right
-      {
-        Robot.driveBase.drive(maxMotorOutput, -maxMotorOutput);
-      }
-      else
-      {
-        Robot.driveBase.drive(-maxMotorOutput, maxMotorOutput); 
-      }
-    }
-    else //sees the line
-    {
-      if(theta < 0)//turning right
-      {
-        Robot.driveBase.drive(maxMotorOutput, maxMotorOutput*(-theta)/90.0);
-      }
-      else//turning left
-      {
-        Robot.driveBase.drive(maxMotorOutput*theta/90.0, maxMotorOutput);
-      }
-    }
+    Robot.driveBase.drive(-0.5, 0.5);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Robot.ultrasonicSystem.getDistance() <= 5.0;
+    return false;
   }
 
   // Called once after isFinished returns true

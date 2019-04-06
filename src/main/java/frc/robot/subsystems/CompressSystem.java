@@ -29,13 +29,6 @@ public class CompressSystem extends Subsystem {
         solenoidOne.set(true);
     }
 
-    //private boolean compressorBool = false;
-
-    //public void Compress() {
-    //    compressorBool = !compressorBool;
-    //    pneumaticCompressor.setClosedLoopControl(compressorBool);
-    //}
-
     public void CompressOn() {
         pneumaticCompressor.setClosedLoopControl(true);
     }

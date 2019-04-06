@@ -4,13 +4,9 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.RobotMap;
 import frc.robot.commands.ArcadeDrive;
-import frc.robot.commands.TankDrive;
 
 public class DriveBase extends Subsystem {
 
@@ -61,27 +57,8 @@ public class DriveBase extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
     public void drive(double leftSpeed, double rightSpeed) {
-
         LeftChassisMotor.set(ControlMode.PercentOutput, leftSpeed);
         RightChassisMotor.set(ControlMode.PercentOutput, rightSpeed);
-
-        //System.out.println("Left Motor Speed: " + LeftChassisMotor.getSelectedSensorVelocity());
-        //System.out.println("Right Motor Speed: " + RightChassisMotor.getSelectedSensorVelocity());
-
-        //This old version uses the default of squaring instead of cubing
-        //arcadeDrive(adjustedFSpeed, adjustedRSpeed);
-
-        /*
-        double leftSpeed = adjustedFSpeed;
-        double rightSpeed = adjustedFSpeed;
-
-        leftSpeed += adjustedRSpeed * 0.5;
-        rightSpeed += adjustedRSpeed * 0.5;
-
-        LeftChassisMotor.set(ControlMode.PercentOutput, leftSpeed);
-        RightChassisMotor.set(ControlMode.PercentOutput, -rightSpeed);
-        */
-        
     }
 
     //Whenever this subsystem is idle
