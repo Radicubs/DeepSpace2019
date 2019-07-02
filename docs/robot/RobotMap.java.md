@@ -5,6 +5,7 @@ circuitry. You can figure out the mappings by using a software known as PhoneixT
 initialized as public static final int. These final varaibles will be accessed throughout the rest of the project
 as needed.
 
+```
 public class RobotMap
 {
     //PWM MOTORS
@@ -16,10 +17,11 @@ public class RobotMap
     public static final int RIGHT_FOLLOWER_ONE = 5;
     public static final int RIGHT_FOLLOWER_TWO = 3;
 
-    
-    ```
+    ...
 
     //ULTRASONIC SENSOR PORTS
     public static final int ULTRASONIC = 0;
-   ```
+
 }
+
+```
