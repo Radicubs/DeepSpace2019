@@ -96,7 +96,7 @@ public class ArcadeDrive extends Command {
         //System.out.println("Left Motor Output: " + leftMotorOutput);
         //System.out.println("Right Motor Output: " + rightMotorOutput);
 
-        double DEMO_LIMIT - 0.7;
+        double DEMO_LIMIT = 0.7;
 
         Robot.driveBase.drive(leftMotorOutput * DEMO_LIMIT, rightMotorOutput * DEMO_LIMIT);
 
